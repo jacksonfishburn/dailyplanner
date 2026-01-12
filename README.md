@@ -8,7 +8,7 @@ A quick and easy way to plan out your day! Write down and save your todo items a
 
 ### Design
 
-![Website Design]()
+![Website Design](assets/Design.png)
 
 ### Key Features
 * Secure login over HTTPS
