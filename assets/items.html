@@ -41,62 +41,80 @@
                         <label for="onetime">One-Time Item</label>
                         <input type="radio" id="onetime" name="varRadio" value="onetime" checked />
                         <label for="recurring">Recurring Item</label>
-                        <input type="radio" id="onetime" name="varRadio" value="recurring" />
+                        <input type="radio" id="recurring" name="varRadio" value="recurring" />
                     </fieldset>
                 </div>
-                <button type="button">Add Item</button>
+                <button type="submit">Add Item</button>
             </form>
         </section>
-
+        
         <h3>Items</h3>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Duration</th>
-                    <th>Type</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Class</td>
-                    <td>60m</td>
-                    <td>Recurring</td>
-                    <td>
-                        <button type="button">Edit</button>
-                        <button type="button">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Gym</td>
-                    <td>45m</td>
-                    <td>Recurring</td>
-                    <td>
-                        <button type="button">Edit</button>
-                        <button type="button">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Shopping</td>
-                    <td>45m</td>
-                    <td>One-Time</td>
-                    <td>
-                        <button type="button">Edit</button>
-                        <button type="button">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Assignment</td>
-                    <td>90m</td>
-                    <td>One-Time</td>
-                    <td>
-                        <button type="button">Edit</button>
-                        <button type="button">Delete</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table> 
+        <section class="item-table">
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Duration</th>
+                        <th>Type</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <span class="item-name">Gym</span>
+                        </td>
+                        <td>
+                            <span class="item-duration">45m</span>
+                        </td>
+                        <td>Recurring</td>
+                        <td>
+                            <button type="button">Edit</button>
+                            <button type="button">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="item-name">Class</span>
+                        </td>
+                        <td>
+                            <span class="item-duration">60m</span>
+                        </td>
+                        <td>Recurring</td>
+                        <td>
+                            <button type="button">Edit</button>
+                            <button type="button">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="item-name">Shopping</span>
+                        </td>
+                        <td>
+                            <span class="item-duration">45m</span>
+                        </td>
+                        <td>One-Time</td>
+                        <td>
+                            <button type="button">Edit</button>
+                            <button type="button">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="item-name">Assignment</span>
+                        </td>
+                        <td>
+                            <span class="item-duration">90m</span>
+                        </td>
+                        <td>One-Time</td>
+                        <td>
+                            <button type="button">Edit</button>
+                            <button type="button">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table> 
+        </section>
     </main>
 
     <footer>
