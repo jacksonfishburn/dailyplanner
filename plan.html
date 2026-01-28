@@ -19,16 +19,31 @@
         </menu>
       </nav>
 
-      <hr />
+      <p class="user-banner">
+          Logged in as: <span id="username">(username placeholder)</span>
+      </p>
+
+      <hr/>
     </header>
 
-    <section class="weather">
-        <p>Weather: Sunny</p>
+    <section class="api-panel" aria-label="Weather widget">
+        <h3>Weather</h3>
+        <p>(placeholder) This data will be pulled via a 3rd-party API later.</p>
+
+        <iframe
+            title="Weather widget"
+            src="https://www.meteoblue.com/en/weather/widget/daily/provo_united-states-of-america_5780026?geoloc=fixed&days=3&tempunit=FAHRENHEIT&windunit=MILE_PER_HOUR&precipunit=INCH&coloured=monochrome&pictoicon=1&maxtemperature=1&mintemperature=1&winddirection=1&windvelocity=1&precipitation=1&layout=light"
+            style="width: 100%; height: 320px; border: 0;"
+            loading="lazy">
+        </iframe>
     </section>
 
     <main>
         <section class="scheduling">
             <h3>Schedule</h3>
+            <p class="ws-status">
+                Schedule updates in real time (WebSocket placeholder)
+            </p>
             <section class="day-grid">
                 <div class="time">7:00am</div>
                 <div class="slot">(empty)</div>
