@@ -28,3 +28,16 @@ A quick and easy way to plan out your day! Write down and save your todo items a
 * Service - Register users and verify login. Retrieve user data to display correct todo items. 
 * Database - Store authentication information, users, and user data including items and schedules. 
 * WebSocket - Broadcast real-time schedule updates across an account on multiple devices.
+---
+## HTML deliverable
+
+For this deliverable I built out the structure of my application using HTML.
+* I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
+* HTML pages - 4 HTML pages that represent the ability to login, make a schedule, add items to the todo lists, and document application purposes.
+* Proper HTML element usage - Used nav, lists, buttons, tables and more where applicable.
+* Links - The login page links to the Plan Day page. The Plan Day page has an add option that links to the Manage Items page.
+* Text - textual context used throughout application to show intended use.
+* 3rd party API placeholder - Weather description at top of schedule
+* Images - Mountain image added to About page
+* DB/Login - Input box and submit button for login. Item lists represent data that will be stored in database.
+* WebSocket - Adding a item will result in a real time update to what is presented.
