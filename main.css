@@ -29,8 +29,13 @@ body {
     justify-content: space-between;
     color: #fff0df;
     padding: 1em;
-    /* max-width: 1200px; */
-    max-height: 100px;
+    max-height: 70px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
 }
 
 header h1 {
