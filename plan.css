@@ -30,8 +30,9 @@ main {
   padding: 0.4rem 0.75rem;
   border-radius: 100px;
 
-  background: #3c3b3b;
+  background: #ea804c;
   border: 1px solid #909090f6;
+  color: white;
 
   font-size: 0.8rem;
 }
@@ -64,7 +65,7 @@ main {
 }
 
 .slot {
-    border: 1px solid white;
+    border: 1px solid rgb(187, 189, 192);
 }
 
 /* item list columns */
@@ -85,10 +86,10 @@ ul {
 .item {
   position: relative;
   height: 10vh;
-  border: 2px solid #9ecc89;
+  border: 3px solid #ceeebf;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
-  background: #789e67;
+  background: #70c77a;
   border-radius: 9px;
 }
 
@@ -107,7 +108,7 @@ ul {
 
 
 .item-name {
-  color: #fff0df;
+  color: #f9f4ee;
   font-style: italic;
   font-weight: 400;
   position: absolute;
@@ -116,7 +117,7 @@ ul {
 }
 
 .item-duration {
-  color: #00000090;
+  color: #ffffff90;
   position: absolute;
   bottom: 0.5rem;
   right: 0.5rem;
@@ -125,16 +126,16 @@ ul {
 }
 
 .item:hover {
-    background-color: #6a8c59;
+    background-color: #86e992;
 }
 
 .add-button {
   height: 1.3em;
   width: 1.3em;
   border-radius: 50%;
-  border: 2px solid #532b16;
+  border: 2px solid #c36836;
 
-  background-color: #b55d31;
+  background-color: #ea804c;
   color: #fff0df; 
   font-size: 1rem;
   font-weight: bold;
@@ -145,7 +146,7 @@ ul {
 }
 
 .add-button:hover {
-  background-color: #512107;
+  background-color: #a34d1e;
 }
 
 .add-button:active {

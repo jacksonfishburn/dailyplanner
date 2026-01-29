@@ -20,8 +20,9 @@ main {
 
 .add-item {
   width: 40vw;
-  background-color: #b55d31;
+  background: linear-gradient( #ea804c);
   padding: 1em;
+  color: #fff0df;
 }
 
 .item-table {
@@ -42,13 +43,14 @@ main {
 }
 
 input {
-  background-color: #3c3b3b;
-  color: #ffffff;
+  background-color: #fff0df;
+  color: #242323;
   border:none;
   padding: 4px;
   padding: 0.6em 0.7em;
   border-radius: 6px;
   font-size: 1rem;  
+  border: 2px solid #532b16;
 }
 
 input:focus {
@@ -88,7 +90,7 @@ input:focus {
   border-radius: 9px;
   border: 2px solid #532b16;
 
-  background-color: #789e67;
+  background-color: #587e7d;
   color: #fff0df;
 
   cursor: pointer;
@@ -96,7 +98,11 @@ input:focus {
 }
 
 .item-type-radio input[type="radio"]:checked + .selection {
-  background-color: #4c6341; 
+  background-color: #324645; 
+}
+
+.item-type-radio .selection:hover {
+    background-color: #526564;
 }
 
 .add-button {
@@ -104,19 +110,19 @@ input:focus {
   font-size: 1rem;
   border-radius: 9px;
 
-  background-color: #9ecc89;
-  color: #000;
+  background-color: #70c77a;
+  color: #ffffff;
 
-  border: none;
+  border: 2px solid #87ef93;
   cursor: pointer;
 }
 
 .add-button:hover {
-  background-color: #6a8c59;
+  background-color: #afd59c;
 }
 
 .add-button:active {
-  background-color: #8a512d;
+  background-color: #e4eee2;
 }
 
 .item-type-radio legend {

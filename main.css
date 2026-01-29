@@ -8,8 +8,9 @@ body {
   margin: 0; 
   display: flex;
   flex-direction: column;
-  background-color: #23201f;
-  color: white;
+  background-color: #f7f1e8;
+  background: linear-gradient(#ffffff, #fff0df);
+  color: rgb(22, 22, 22);
 }
 
 html,
@@ -19,7 +20,7 @@ body {
 
 
 .app-header {
-  background: #2f60b7;
+  background: linear-gradient(to right, #3777e6, #2f60b7);
 }
 
 
@@ -41,6 +42,7 @@ body {
 header h1 {
     font-size: 2em;
     font-style: italic;
+    text-shadow: 0 4px 0px #b55d31;
 }
 
 .nav-links {
@@ -61,8 +63,8 @@ main {
 }
 
 footer {
-  background-color: #1e1b1a;
-  color: #afadad;
+  background-color: #d7cbbd;
+  color: #ffffff;
 
   text-align: right;
   padding: 1rem 2rem;
@@ -74,17 +76,17 @@ footer {
 
   gap: 1rem;
 
-  border-top: 1px solid #887d723b;
+  border-top: 1px solid #efe8e0;
 }
 
 footer a {
-  color: #8ab4f8;
+  color: #6495e4;
   text-decoration: none;
 }
 
 a:hover {
     text-decoration: underline;
-    color: #b55d31;
+    color: #ff8b52;
 }
 
 a:active {
