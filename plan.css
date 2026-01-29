@@ -3,15 +3,14 @@ main {
     align-items: flex-start; 
     justify-content: center;
     flex-wrap: wrap;
+    gap: 2em;
+    margin-top: 1em;
 }
 
-.lists {
-    margin: 1em
-}
+/* schedule column */
 
 .schedule {
-    margin: 1em;
-    width: 50vw;
+    width: 40vw;
     height: 70vh;
     display: flex;
     flex-direction: column;
@@ -22,6 +21,19 @@ main {
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+}
+
+.weather {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 0.4rem 0.75rem;
+  border-radius: 100px;
+
+  background: #3c3b3b;
+  border: 1px solid #909090f6;
+
+  font-size: 0.8rem;
 }
 
 .times,
@@ -53,4 +65,91 @@ main {
 
 .slot {
     border: 1px solid white;
+}
+
+/* item list columns */
+
+.lists {
+    width: 20vw;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  position: relative;
+  height: 10vh;
+  border: 2px solid #9ecc89;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  background: #789e67;
+  border-radius: 9px;
+}
+
+#shopping,
+#gym {
+    height: 15vh
+}
+
+#assignment {
+    height: 30vh
+}
+
+#class {
+    height: 20vh
+}
+
+
+.item-name {
+  color: #fff0df;
+  font-style: italic;
+  font-weight: 400;
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+}
+
+.item-duration {
+  color: #00000090;
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.item:hover {
+    background-color: #6a8c59;
+}
+
+.add-button {
+  flex: 1;
+  height: 1.3em;
+  width: 1.3em;
+  border-radius: 50%;
+  border: 2px solid #532b16;
+
+  background-color: #b55d31;
+  color: #fff0df; 
+  font-size: 1rem;
+  font-weight: bold;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-button:hover {
+  background-color: #512107;
+}
+
+.add-button:active {
+  background-color: #000000;
+  transform: scale(0.95);
 }

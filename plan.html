@@ -32,19 +32,20 @@
 
     <main>
         <div class="lists">
+            <div class="outside">
             <h3>One-time</h3>
             <form action="items.html" method="get">
-                <button type="submit">+</button>
+                <button type="submit" class="add-button">+</button>
             </form>
+            </div>
             <section>
                 <ul>
-                    <li>
-                        <span class="item-name">Shopping</span>
-                        <span class="item-duration">45m</span>
-                    </li>
-                    <li>
+                    <li class="item" id="assignment">
                         <span class="item-name">Assignment</span>
                         <span class="item-duration">90m</span>
+                    </li>                    <li class="item" id="shopping">
+                        <span class="item-name">Shopping</span>
+                        <span class="item-duration">45m</span>
                     </li>
                 </ul>
             </section>  
@@ -52,7 +53,7 @@
 
         <section class="schedule">
             <div class="outside">
-                <h3>Schedule</h3>
+                <h2>Schedule</h2>
 
                 <section class="weather">
                     <div>38° Sunny</div>
@@ -74,8 +75,7 @@
                     <div class="time">6pm</div>
                     <div class="time">7pm</div>
                     <div class="time">8pm</div>
-                    <div class="time">9pm</div>
-                    <div class="time">10pm</div>
+
                 </div>
 
                 <div class="graph">
@@ -94,28 +94,28 @@
                     <div class="slot"></div>
                     <div class="slot"></div>
                     <div class="slot"></div>
-                    <div class="slot"></div>
-                    <div class="slot"></div>
+
                 </div>
             </section>
         </section>
 
         <div class="lists">
+            <div class="outside">
             <h3>Recurring</h3>
             <form action="items.html" method="get">
-                <button type="submit">+</button>
+                <button type="submit" class="add-button">+</button>
             </form>
-            <section>
-                <ul>
-                    <li>
-                        <span class="item-name">Gym</span>
-                        <span class="item-duration">45m</span>
-                    </li>
-                    <li>
-                        <span class="item-name">Class</span>
-                        <span class="item-duration">60m</span>
-                    </li>
-                </ul>
+            </div>
+            <ul>
+                <li class="item" id="gym">
+                    <span class="item-name">Gym</span>
+                    <span class="item-duration">45m</span>
+                </li>
+                <li class="item" id="class">
+                    <span class="item-name">Class</span>
+                    <span class="item-duration">60m</span>
+                </li>
+            </ul>
         </div>
 </main>
 
