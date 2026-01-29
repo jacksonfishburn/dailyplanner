@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="plan.css" />
     <title>Plan My Day</title>
   </head>
 
@@ -29,101 +30,94 @@
     </div>
     </header>
 
-    <section class="api-panel" aria-label="Weather widget">
-        <div>38° Sunny</div>
-    </section>
-
     <main>
-        <section class="scheduling">
-            <h3>Schedule</h3>
+        <div class="lists">
+            <h3>One-time</h3>
+            <form action="items.html" method="get">
+                <button type="submit">+</button>
+            </form>
+            <section>
+                <ul>
+                    <li>
+                        <span class="item-name">Shopping</span>
+                        <span class="item-duration">45m</span>
+                    </li>
+                    <li>
+                        <span class="item-name">Assignment</span>
+                        <span class="item-duration">90m</span>
+                    </li>
+                </ul>
+            </section>  
+        </div>
+
+        <section class="schedule">
+            <div class="outside">
+                <h3>Schedule</h3>
+
+                <section class="weather">
+                    <div>38° Sunny</div>
+                </section>
+            </div>
 
             <section class="day-grid">
-                <div class="time">7:00am</div>
-                <div class="slot">(empty)</div>
+                <div class="times">
+                    <div class="time">8am</div>
+                    <div class="time">9am</div>
+                    <div class="time">10am</div>
+                    <div class="time">11am</div>
+                    <div class="time">12pm</div>
+                    <div class="time">1pm</div>
+                    <div class="time">2pm</div>
+                    <div class="time">3pm</div>
+                    <div class="time">4pm</div>
+                    <div class="time">5pm</div>
+                    <div class="time">6pm</div>
+                    <div class="time">7pm</div>
+                    <div class="time">8pm</div>
+                    <div class="time">9pm</div>
+                    <div class="time">10pm</div>
+                </div>
 
-                <div class="time">8:00am</div>
-                <div class="slot">(empty)</div>
-
-                <div class="time">9:00am</div>
-                <div class="slot">(empty)</div>
-
-                <div class="time">10:00am</div>
-                <div class="slot">(empty)</div>
-
-                <div class="time">11:00am</div>
-                <div class="slot">(empty)</div>
-
-                <div class="time">12:00pm</div>
-                <div class="slot">(empty)</div>
-
-                <div class="time">1:00pm</div>
-                <div class="slot">(empty)</div>
-
-                <div class="time">2:00pm</div>
-                <div class="slot">(empty)</div>
-
-                <div class="time">3:00pm</div>
-                <div class="slot">(empty)</div>
-
-                <div class="time">4:00pm</div>
-                <div class="slot">(empty)</div>
-
-                <div class="time">5:00pm</div>
-                <div class="slot">(empty)</div>
-
-                <div class="time">6:00pm</div>
-                <div class="slot">(empty)</div>
-
-                <div class="time">7:00pm</div>
-                <div class="slot">(empty)</div>
-
-                <div class="time">8:00pm</div>
-                <div class="slot">(empty)</div>
-
-                <div class="time">9:00pm</div>
-                <div class="slot">(empty)</div>
-
-                <div class="time">10:00pm</div>
-                <div class="slot">(empty)</div>
+                <div class="graph">
+                    <div class="slot"></div>
+                    <div class="slot"></div>
+                    <div class="slot"></div>
+                    <div class="slot"></div>
+                    <div class="slot"></div>
+                    <div class="slot"></div>
+                    <div class="slot"></div>
+                    <div class="slot"></div>
+                    <div class="slot"></div>
+                    <div class="slot"></div>
+                    <div class="slot"></div>
+                    <div class="slot"></div>
+                    <div class="slot"></div>
+                    <div class="slot"></div>
+                    <div class="slot"></div>
+                    <div class="slot"></div>
+                    <div class="slot"></div>
+                </div>
             </section>
-            
-            <aside class="lists">
-                <h3>Recurring</h3>
-                <form action="items.html" method="get">
-                    <button type="submit">+</button>
-                </form>
-                <section>
-                    <ul>
-                        <li>
-                            <span class="item-name">Gym</span>
-                            <span class="item-duration">45m</span>
-                        </li>
-                        <li>
-                            <span class="item-name">Class</span>
-                            <span class="item-duration">60m</span>
-                        </li>
-                    </ul>
-                </section>
-                <h3>One-time</h3>
-                <form action="items.html" method="get">
-                    <button type="submit">+</button>
-                </form>
-                <section>
-                        <ul>
-                            <li>
-                                <span class="item-name">Shopping</span>
-                                <span class="item-duration">45m</span>
-                            </li>
-                            <li>
-                                <span class="item-name">Assignment</span>
-                                <span class="item-duration">90m</span>
-                            </li>
-                        </ul>
-                </section>
-            </aside>
-
         </section>
-    </main>
+
+        <div class="lists">
+            <h3>Recurring</h3>
+            <form action="items.html" method="get">
+                <button type="submit">+</button>
+            </form>
+            <section>
+                <ul>
+                    <li>
+                        <span class="item-name">Gym</span>
+                        <span class="item-duration">45m</span>
+                    </li>
+                    <li>
+                        <span class="item-name">Class</span>
+                        <span class="item-duration">60m</span>
+                    </li>
+                </ul>
+        </div>
+</main>
 
     <footer>
       <hr />

@@ -1,0 +1,56 @@
+main {
+    display: flex;
+    align-items: flex-start; 
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.lists {
+    margin: 1em
+}
+
+.schedule {
+    margin: 1em;
+    width: 50vw;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.outside {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.times,
+.graph {
+  display: flex;
+  flex-direction: column;
+}
+
+.times {
+  width: 70px;
+  flex-shrink: 0;
+}
+
+.graph {
+  flex: 1;
+}
+
+.day-grid{
+    display: flex;
+    flex:1;
+}
+
+.time,
+.slot {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.slot {
+    border: 1px solid white;
+}

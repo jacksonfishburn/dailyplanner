@@ -84,4 +84,13 @@ footer a {
 
 a:hover {
     text-decoration: underline;
+    color: #b55d31;
+}
+
+a:active {
+    color: black;
+}
+
+.slot {
+    height: 1em
 }
