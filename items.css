@@ -1,11 +1,21 @@
 
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
 main {
     display: flex;
+    flex: 1;
     align-items: stretch; 
     justify-content: flex-start;
     flex-wrap: wrap;
     gap: 2em;
-    min-height: 100vh;
 }
 
 .add-item {
@@ -21,7 +31,9 @@ main {
 .add-item form {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 1.5em;
+  justify-content: flex-start;
+  height: 100%;
   align-items: center;
 }
 
@@ -34,7 +46,9 @@ input {
   color: #ffffff;
   border:none;
   padding: 4px;
-  border-radius: 3px;
+  padding: 0.6em 0.7em;
+  border-radius: 6px;
+  font-size: 1rem;  
 }
 
 input:focus {
@@ -42,10 +56,10 @@ input:focus {
 }
 
 .name-and-time {
-  display: block;
-  text-align: center;
+  display: flex;
   flex-direction: column;
-  gap: 1em; 
+  text-align: center;
+  gap: 3em; 
 }
 
 .name-and-time input {
@@ -86,7 +100,8 @@ input:focus {
 }
 
 .add-button {
-  padding: 0.5em 1.2em;
+  padding: 0.7em 2em;
+  font-size: 1rem;
   border-radius: 9px;
 
   background-color: #9ecc89;
