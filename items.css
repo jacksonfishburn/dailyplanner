@@ -22,8 +22,90 @@ main {
   display: flex;
   flex-direction: column;
   gap: 1em;
+  align-items: center;
 }
 
 #itemDuration {
   width: 4em;
 }
+
+input {
+  background-color: #3c3b3b;
+  color: #ffffff;
+  border:none;
+  padding: 4px;
+  border-radius: 3px;
+}
+
+input:focus {
+  outline: none;
+}
+
+.name-and-time {
+  display: block;
+  text-align: center;
+  flex-direction: column;
+  gap: 1em; 
+}
+
+.name-and-time input {
+  margin: 0 auto;
+}
+
+.name-and-time > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em; 
+}
+
+.item-type-radio input[type="radio"] {
+  display: none;
+}
+
+.item-type-radio fieldset {
+  border: none;
+  display: flex;
+  gap: 1em;
+  justify-content: center;
+}
+
+.item-type-radio .selection {
+  padding: 0.5em 1em;
+  border-radius: 9px;
+  border: 2px solid #532b16;
+
+  background-color: #789e67;
+  color: #fff0df;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+.item-type-radio input[type="radio"]:checked + .selection {
+  background-color: #4c6341; 
+}
+
+.add-button {
+  padding: 0.5em 1.2em;
+  border-radius: 9px;
+
+  background-color: #9ecc89;
+  color: #000;
+
+  border: none;
+  cursor: pointer;
+}
+
+.add-button:hover {
+  background-color: #6a8c59;
+}
+
+.add-button:active {
+  background-color: #8a512d;
+}
+
+.item-type-radio legend {
+  text-align: center;
+  width: 100%;
+}
+
