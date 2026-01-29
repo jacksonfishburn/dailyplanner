@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="items.css" />
     <title>Plan My Day</title>
   </head>
 
@@ -30,33 +31,34 @@
     </header>
 
     <main>
-        <h2>Manage Items</h2>
         <section class="add-item">
             <h3>Add Item</h3>
             <form>
-                <div>
-                    <label for="itemName">Name</label>
-                    <input id="itemName" name="itemName" type="text" placeholder="Enter name for item" required />
+                <div class="name-and-time">
+                    <div>
+                        <label for="itemName" class="label">Name</label>
+                        <input id="itemName" name="itemName" type="text" placeholder="Enter name for item" required />
+                    </div>
+                    <div>
+                        <label for="itemDuration" class="label">Duration (minutes)</label>
+                        <input id="itemDuration" name="itemDuration" type="number" min="15" step="5" value="60" required />
+                    </div>
                 </div>
-                <div>
-                    <label for="itemDuration">Duration (minutes)</label>
-                    <input id="itemDuration" name="itemDuration" type="number" min="5" step="5" value="30" required />
-                </div>
-                <div>
+                <div class="item-type-radio">
                     <fieldset>
                         <legend>Item Type</legend>
-                        <label for="onetime">One-Time Item</label>
+                        <label for="onetime" class="selection">One-Time Item</label>
                         <input type="radio" id="onetime" name="varRadio" value="onetime" checked />
-                        <label for="recurring">Recurring Item</label>
+                        <label for="recurring" class="selection">Recurring Item</label>
                         <input type="radio" id="recurring" name="varRadio" value="recurring" />
                     </fieldset>
                 </div>
-                <button type="submit">Add Item</button>
+                <button type="submit" class="add-button">Add Item</button>
             </form>
         </section>
         
-        <h3>Items</h3>
         <section class="item-table">
+            <h3>Items</h3>
             <table border="1">
                 <thead>
                     <tr>
@@ -74,7 +76,7 @@
                         <td>
                             <span class="item-duration">45m</span>
                         </td>
-                        <td>Recurring</td>
+                        <td><span class="item-type">Recurring</span></td>
                         <td>
                             <button type="button">Delete</button>
                         </td>
@@ -86,7 +88,7 @@
                         <td>
                             <span class="item-duration">60m</span>
                         </td>
-                        <td>Recurring</td>
+                        <td><span class="item-type">Recurring</span></td>
                         <td>
                             <button type="button">Delete</button>
                         </td>
@@ -98,7 +100,7 @@
                         <td>
                             <span class="item-duration">45m</span>
                         </td>
-                        <td>One-Time</td>
+                        <td><span class="item-type">One-Time</span></td>
                         <td>
                             <button type="button">Delete</button>
                         </td>
@@ -110,21 +112,13 @@
                         <td>
                             <span class="item-duration">90m</span>
                         </td>
-                        <td>One-Time</td>
+                        <td><span class="item-type">One-Time</span></td>
                         <td>
                             <button type="button">Delete</button>
                         </td>
                     </tr>
                 </tbody>
             </table> 
-        </section>
-
-        <section class="ws-panel" aria-label="Live collaboration panel">
-            <p><strong>Live sync:</strong> <span>(placeholder — WebSocket not implemented yet)</span></p>
-            <ul class="ws-feed">
-                <li>added 'Gym' at 5:15pm</li>
-                <li>Deleted 'Homework' at 5:14pm</li>
-            </ul>
         </section>
     </main>
 

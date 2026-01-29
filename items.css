@@ -1,0 +1,29 @@
+
+main {
+    display: flex;
+    align-items: stretch; 
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 2em;
+    min-height: 100vh;
+}
+
+.add-item {
+  width: 40vw;
+  background-color: #b55d31;
+  padding: 1em;
+}
+
+.item-table {
+  width: 50vw;
+}
+
+.add-item form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+#itemDuration {
+  width: 4em;
+}
