@@ -20,7 +20,7 @@ main {
 
 .add-item {
   width: 40vw;
-  background: linear-gradient( #ea814cc5, #ea814cf9);
+  background: linear-gradient( #719b9a, #587e7d);
   padding: 1em;
   color: #fff0df;
   border-right: 2px solid #ea814cf9;
@@ -28,7 +28,7 @@ main {
 }
 
 .add-item h2 {
-    text-shadow: 0 2px 1px #5b2c15;
+    text-shadow: 0 2px 1px #154e4c;
     font-weight: 700;
 }
 
@@ -64,7 +64,7 @@ input {
   padding: 0.6em 0.7em;
   border-radius: 6px;
   font-size: 1rem;  
-  border: 2px solid #532b16;
+  border: 2px solid #bedbda;
 }
 
 input:focus {
@@ -102,9 +102,9 @@ input:focus {
 .item-type-radio .selection {
   padding: 0.5em 1em;
   border-radius: 9px;
-  border: 2px solid #532b16;
+  border: 2px solid #519e9c;
 
-  background-color: #587e7d;
+  background-color: #81acab;
   color: #fff0df;
 
   cursor: pointer;
@@ -112,11 +112,11 @@ input:focus {
 }
 
 .item-type-radio input[type="radio"]:checked + .selection {
-  background-color: #324645; 
+  background-color: #154e4c; 
 }
 
 .item-type-radio .selection:hover {
-    background-color: #526564;
+    background-color: #498a88;
 }
 
 .add-button {
@@ -124,19 +124,19 @@ input:focus {
   font-size: 1rem;
   border-radius: 9px;
 
-  background-color: #70c77a;
+  background-color: #ff8b52;
   color: #ffffff;
 
-  border: 2px solid #87ef93;
+  border: 2px solid #fd9b6a;
   cursor: pointer;
 }
 
 .add-button:hover {
-  background-color: #afd59c;
+  background-color: #da703b;
 }
 
 .add-button:active {
-  background-color: #e4eee2;
+  background-color: #c16435;
 }
 
 .item-type-radio legend {
