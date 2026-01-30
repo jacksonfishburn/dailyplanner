@@ -20,13 +20,28 @@ main {
 
 .add-item {
   width: 40vw;
-  background: linear-gradient( #ea804c);
+  background: linear-gradient( #ea814cc5, #ea814cf9);
   padding: 1em;
   color: #fff0df;
+  border-right: 2px solid #ea814cf9;
+  font-weight: 600;
+}
+
+.add-item h2 {
+    text-shadow: 0 2px 1px #5b2c15;
+    font-weight: 700;
+}
+
+
+
+.item-table h2 {
+    font-weight: 700;
 }
 
 .item-table {
   width: 50vw;
+  padding: 1em;
+
 }
 
 .add-item form {
