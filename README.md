@@ -29,7 +29,7 @@ A quick and easy way to plan out your day! Write down and save your todo items a
 * Database - Store authentication information, users, and user data including items and schedules. 
 * WebSocket - Broadcast real-time schedule updates across an account on multiple devices.
 ---
-## HTML deliverable
+## HTML Deliverable
 
 For this deliverable I built out the structure of my application using HTML.
 * I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
@@ -41,3 +41,14 @@ For this deliverable I built out the structure of my application using HTML.
 * Images - Mountain image added to About page
 * DB/Login - Input box and submit button for login. Item lists represent data that will be stored in database.
 * WebSocket - Adding a item will result in a real time update to what is presented.
+
+
+## CSS Deliverable
+
+For this deliverable I stylized my webpage using CSS.
+* Header, footer, and main content body - all parts stylized with CSS. 
+* Navigation elements - links on the header and bottons throughout the application to move between pages. 
+* Responsive to window resizing - used flexbox to make many elements of the site resize with the window, including the schedule and item lists. 
+* Application elements - used and designed a number of elements including a table, radio, input boxs and more. 
+* Application text content - lots of text used throughout the application, all stylized in different, appropriate, and readable ways. 
+* Application images - made image fill main section in the about page, with a dimmed overlay applied to improve text readability. 
