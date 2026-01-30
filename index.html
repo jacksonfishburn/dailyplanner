@@ -4,6 +4,7 @@
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="main.css" />
+      <link rel="stylesheet" href="index.css" />
       <title>Plan My Day</title>
   </head>
   <body>
@@ -29,21 +30,23 @@
     </header>
 
     <main>
-        <body> 
-            <h1>Welcome</h1>
-    <form method="get" action="plan.html">
-        <li>
-            <span>@</span>
-            <input type="text" placeholder="Enter email" />
-        </li>
-        <li>
-            <span>🔒</span>
-            <input type="password" placeholder="Enter password" />
-        </li>
-        <button type="submit">Login</button>
-        <button type="submit">Resister</button>
-      </form>
-        </body>
+      <section class="login">
+        <h1>Start Planning</h1>
+        <form method="get" action="plan.html">
+          <div class="email">
+              <label>Email:</label>
+              <input type="text" placeholder="Enter email" />
+          </div>
+          <div class="password">
+              <label>Password:</label>
+              <input type="password" placeholder="Enter password" />
+          </div>
+          <div class="actions">
+              <button type="submit">Login</button>
+              <button type="submit">Register</button>
+          </div>
+        </form>
+      </section>
     </main>
 
     <footer>

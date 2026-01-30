@@ -1,0 +1,33 @@
+
+main {
+  min-height: 100vh;
+
+  background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpaperaccess.com%2Ffull%2F133709.jpg&f=1&nofb=1&ipt=7f55c00ec4780f4166216973a501e59ba5c8a408178b587c7e7cb40fe3a8461c");
+  background-size: cover;
+  background-position: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.511);
+}
+
+main {
+  position: relative;
+}
+
+.about {
+  position: relative;
+  color: white;
+  max-width: 600px;
+  padding: 2em;
+  font-size: larger;
+  font-weight: 600;
+}
+

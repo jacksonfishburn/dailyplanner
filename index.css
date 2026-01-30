@@ -1,0 +1,73 @@
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20vh;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.login form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  align-items: center;
+  font-size: 1.1rem;
+  background-color: #70c77a;
+  padding: 2em;
+  border: 3px solid #ceeebf;
+  border-radius: 10px;
+  color: #fff0df;
+}
+
+input {
+  background-color: #fff0df;
+  color: #242323;
+  border:none;
+  padding: 0.6em 0.7em;
+  border-radius: 6px;
+  font-size: 1rem;  
+  border: 2px solid #ceeebf;
+}
+
+input:focus {
+  outline: none;
+}
+
+
+.email,
+.password {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.actions {
+  display: flex;
+  gap: 1em;
+}
+
+button  {
+  padding: 0.4em 1.4em;
+  font-size: 1rem;
+  border-radius: 9px;
+
+  background-color: #587e7d;
+  color: #fff0df;
+
+  border: 2px solid #81b8b7;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #ed7b42;
+}
+
+button:active {
+  background-color: #ee9a70;
+}
