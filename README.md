@@ -46,9 +46,9 @@ For this deliverable I built out the structure of my application using HTML.
 ## CSS Deliverable
 
 For this deliverable I stylized my webpage using CSS.
-* Header, footer, and main content body - all parts stylized with CSS. 
-* Navigation elements - links on the header and bottons throughout the application to move between pages. 
-* Responsive to window resizing - used flexbox to make many elements of the site resize with the window, including the schedule and item lists. 
-* Application elements - used and designed a number of elements including a table, radio, input boxs and more. 
-* Application text content - lots of text used throughout the application, all stylized in different, appropriate, and readable ways. 
-* Application images - made image fill main section in the about page, with a dimmed overlay applied to improve text readability. 
+* Visually appealing colors and layout. No overflowing elements.
+* Use of a CSS framework (bootstrap) on the about page. 
+* All visual elements styled using CSS. Each page sytled uniquely with consistant theme. 
+* Schedule, item lists and more are responsive to window resizing using flexbox.
+* All font imported, either Montserrat or Archivo Black.  
+* Use of different types of selectors including class, ID and elements such as button, input, header and more. 
