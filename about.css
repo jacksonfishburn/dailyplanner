@@ -6,7 +6,7 @@ main {
   background-size: cover;
   background-position: center;
 
-  position: relative; /* keep */
+  position: relative;
 }
 
 main::before {
@@ -15,4 +15,18 @@ main::before {
   inset: 0;
   background: rgba(0, 0, 0, 0.511);
   z-index: 0;
+}
+
+header h1,
+.user-banner {
+  margin: 0;
+  line-height: 1;
+}
+
+.header-content {
+  height: 70px;
+}
+
+footer {
+  justify-content: flex-end;
 }
