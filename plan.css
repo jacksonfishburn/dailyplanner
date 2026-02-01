@@ -91,6 +91,8 @@ ul {
   margin-bottom: 0.5rem;
   background: #70c77a;
   border-radius: 9px;
+  font-family: "Montserrat", sans-serif;
+
 }
 
 #shopping,
@@ -129,11 +131,13 @@ ul {
     background-color: #86e992;
 }
 
+
 .add-button {
   height: 1.3em;
   width: 1.3em;
   border-radius: 50%;
   border: 2px solid #c36836;
+  font-family: "Montserrat", sans-serif;
 
   background-color: #ea804c;
   color: #fff0df; 

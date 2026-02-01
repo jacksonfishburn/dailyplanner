@@ -1,6 +1,5 @@
 
 * {
-  font-family: sans-serif;
   box-sizing: border-box;
 }
 
@@ -11,6 +10,7 @@ body {
   background-color: #f7f1e8;
   background: linear-gradient(#ffffff, #fff0df);
   color: rgb(22, 22, 22);
+  font-family: 'Archivo Black', sans-serif;
 }
 
 html,
@@ -66,6 +66,8 @@ main {
 footer {
   background-color: #d7cbbd;
   color: #ffffff;
+  font-family: "Montserrat", sans-serif;
+
 
   text-align: right;
   padding: 1rem 2rem;
