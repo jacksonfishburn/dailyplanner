@@ -1,0 +1,26 @@
+{
+  "name": "dailyplanner",
+  "version": "1.0.0",
+  "description": "A quick and easy way to plan out your day! Write down and save your todo items and how long they will take you. Once the day comes to get it done, simply drag and drop the item into the time slot you plan on doing it. There will be two lists holding different types of items: frequent items that will never be removed from the list no matter how many times you plan them, and one time todo items which will no longer be in the list once they are planned. This will make it super easy to plan all parts of your day, things like going to the gym or going to class can be on the frequent list, and things like a friends birthday party, an event or even just an uncommon chore can be on the todo list. This makes for effortless productivity and time management!",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacksonfishburn/dailyplanner.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jacksonfishburn/dailyplanner/issues"
+  },
+  "homepage": "https://github.com/jacksonfishburn/dailyplanner#readme",
+  "devDependencies": {
+    "vite": "^7.3.1"
+  }
+}
