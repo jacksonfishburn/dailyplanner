@@ -9,7 +9,7 @@ body {
   flex-direction: column;
 }
 
-main {
+.items-container {
     display: flex;
     flex: 1;
     align-items: stretch; 
@@ -55,7 +55,7 @@ main {
   width: 4em;
 }
 
-input {
+.items-input {
   background-color: #fff0df;
   color: #242323;
   border:none;
@@ -65,7 +65,7 @@ input {
   border: 2px solid #bedbda;
 }
 
-input:focus {
+.items-input:focus {
   outline: none;
 }
 
@@ -118,7 +118,7 @@ input:focus {
     background-color: #498a88;
 }
 
-.add-button {
+.add-item-button {
   padding: 0.7em 2em;
   font-size: 1rem;
   border-radius: 9px;
@@ -132,11 +132,11 @@ input:focus {
   cursor: pointer;
 }
 
-.add-button:hover {
+.add-item-button:hover {
   background-color: #da703b;
 }
 
-.add-button:active {
+.add-item-button:active {
   background-color: #c16435;
 }
 

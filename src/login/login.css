@@ -1,5 +1,5 @@
 
-main {
+.login-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,7 +25,7 @@ main {
   color: #fff0df;
 }
 
-input {
+.login-input {
   background-color: #fff0df;
   color: #242323;
   border:none;
@@ -35,7 +35,7 @@ input {
   border: 2px solid #ceeebf;
 }
 
-input:focus {
+.login-input:focus {
   outline: none;
 }
 
@@ -52,7 +52,7 @@ input:focus {
   gap: 1em;
 }
 
-button  {
+.login-button  {
   padding: 0.4em 1.4em;
   font-size: 1rem;
   border-radius: 9px;
@@ -66,10 +66,10 @@ button  {
   cursor: pointer;
 }
 
-button:hover {
+.login-button:hover {
   background-color: #ed7b42;
 }
 
-button:active {
+.login-button:active {
   background-color: #ee9a70;
 }

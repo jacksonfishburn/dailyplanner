@@ -18,6 +18,12 @@ body {
   height: 100%;
 }
 
+.body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 
 .app-header {
   background: linear-gradient(to right, #3777e6, #2f60b7);
@@ -39,7 +45,7 @@ body {
   gap: 2rem;
 }
 
-header h1 {
+.header-title {
     font-size: 2em;
     font-weight: 900;
     font-style: italic;
@@ -94,6 +100,16 @@ a:hover {
 
 a:active {
     color: black;
+}
+
+h2 {
+  font-size: 1.8em;
+  margin: 0.5em 0;
+}
+
+h3 {
+  font-size: 1.2em;
+  margin: 0.5em 0;
 }
 
 .slot {

@@ -1,4 +1,4 @@
-main {
+.plan-container {
     display: flex;
     align-items: flex-start; 
     justify-content: center;
@@ -75,9 +75,10 @@ main {
     height: 70vh;
     display: flex;
     flex-direction: column;
+  margin-top: 0.8rem;
 }
 
-ul {
+.item-list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -92,7 +93,6 @@ ul {
   background: #70c77a;
   border-radius: 9px;
   font-family: "Montserrat", sans-serif;
-
 }
 
 #shopping,
@@ -132,7 +132,7 @@ ul {
 }
 
 
-.add-button {
+.plan-add-button {
   height: 1.3em;
   width: 1.3em;
   border-radius: 50%;
@@ -149,11 +149,11 @@ ul {
   justify-content: center;
 }
 
-.add-button:hover {
+.plan-add-button:hover {
   background-color: #a34d1e;
 }
 
-.add-button:active {
+.plan-add-button:active {
   background-color: #000000;
   transform: scale(0.95);
 }
