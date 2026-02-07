@@ -44,7 +44,7 @@
 }
 
 #itemDuration {
-  width: 4em;
+  width: 8em;
 }
 
 .items-input {
@@ -141,6 +141,10 @@
 .item-type-radio legend {
   text-align: center;
   width: 100%;
+  font-size: medium;
+  font-weight: 600;
+  color: #fff0df;
+  font-family: 'Archivo Black', sans-serif;
 }
 
 .item-type-radio fieldset > div {
