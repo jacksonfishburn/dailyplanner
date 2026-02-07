@@ -3,8 +3,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 20vh;
+  height: 100vh;
 }
+
+.login-container {
+  flex: 1;
+}
+
 
 .login {
   display: flex;
@@ -33,6 +38,7 @@
   border-radius: 6px;
   font-size: 1rem;  
   border: 2px solid #ceeebf;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .login-input:focus {
