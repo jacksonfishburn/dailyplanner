@@ -46,6 +46,7 @@ export default function App() {
           </div>
         </header>
 
+        <main>
         <Routes>
           <Route path='/' element={<Login />} exact />
           <Route path='/plan' element={<Plan />} />
@@ -53,7 +54,7 @@ export default function App() {
           <Route path='/about' element={<About />} />
           <Route path='*' element={<NotFound />} />
         </Routes>  
-        <main></main>
+        </main>
 
         <footer>
           <hr />
