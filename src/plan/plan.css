@@ -88,10 +88,10 @@
 .item {
   position: relative;
   height: 10vh;
-  border: 3px solid #ceeebf;
+  border: 3px solid #e9dfba;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
-  background: #70c77a;
+  background: #ccc29c;
   border-radius: 9px;
   font-family: "Montserrat", sans-serif;
 }
@@ -129,7 +129,7 @@
 }
 
 .item:hover {
-    background-color: #86e992;
+    background-color: rgb(235, 225, 185);
 }
 
 

@@ -24,7 +24,7 @@ export default function App() {
                   </li>
                   <li>
                     <NavLink className="nav-link" to="plan">
-                      Plan day
+                      Plan Day
                     </NavLink>
                   </li>
                   <li>

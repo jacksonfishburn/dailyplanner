@@ -23,9 +23,9 @@
   gap: 1em;
   align-items: center;
   font-size: 1.1rem;
-  background-color: #70c77a;
+  background-color: #ccc29c;
   padding: 2em;
-  border: 3px solid #ceeebf;
+  border: 3px solid #e9dfba;
   border-radius: 10px;
   color: #fff0df;
 }
@@ -37,7 +37,7 @@
   padding: 0.6em 0.7em;
   border-radius: 6px;
   font-size: 1rem;  
-  border: 2px solid #ceeebf;
+  border: 2px solid #c4bda3;
   font-family: 'Montserrat', sans-serif;
 }
 

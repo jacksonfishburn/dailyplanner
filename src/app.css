@@ -65,6 +65,17 @@ body {
   color: #fff0df;
 }
 
+.nav-links a:hover {
+  text-decoration: underline;
+  color: #ff8b52;
+}
+
+.nav-links a:active {
+  text-decoration: underline;
+  color: #e57b46;
+}
+
+
 main {
   flex: 1;
   display: flex;
@@ -124,4 +135,3 @@ h3 {
   font-size: 1.2em;
   margin: 0.5em 0;
 }
-
