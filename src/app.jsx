@@ -57,7 +57,7 @@ export default function App() {
 
         <footer>
           <hr />
-          <span class="text-reset">Jackson Fishburn</span>
+          <span className="text-reset">Jackson Fishburn</span>
           <br />
           <a href="https://github.com/jacksonfishburn/dailyplanner">GitHub</a>
         </footer>

@@ -1,14 +1,4 @@
 
-/* html, body {
-  height: 100%;
-  margin: 0;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-}
-
 .items-container {
     display: flex;
     flex: 1;
@@ -25,6 +15,8 @@ body {
   color: #fff0df;
   border-right: 2px solid #ea814cf9;
   font-weight: 600;
+  display: flex;
+  flex-direction: column;
 }
 
 .add-item h2 {
@@ -98,8 +90,9 @@ body {
 .item-type-radio fieldset {
   border: none;
   display: flex;
+  flex-direction: column;
   gap: 1em;
-  justify-content: center;
+  align-items: center;
   font-family: "Montserrat", sans-serif;
 }
 
@@ -150,8 +143,14 @@ body {
   width: 100%;
 }
 
+.item-type-radio fieldset > div {
+  display: flex;
+  gap: 1em;
+  justify-content: center;
+}
+
 /* TABLE */
-/* 
+ 
 .item-table table {
   border-collapse: separate;
   border-spacing: 0 0.6em;
@@ -208,4 +207,4 @@ body {
 .item-duration,
 .item-type {
   font-weight: 600;
-} */
+}

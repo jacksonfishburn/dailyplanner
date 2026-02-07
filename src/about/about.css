@@ -17,16 +17,8 @@
   z-index: 0;
 }
 
-header h1,
-.user-banner {
-  margin: 0;
-  line-height: 1;
-}
 
 .header-content {
   height: 70px;
 }
 
-footer {
-  justify-content: flex-end;
-}
