@@ -1,5 +1,5 @@
 
-html, body {
+/* html, body {
   height: 100%;
   margin: 0;
 }
@@ -67,6 +67,11 @@ body {
 
 .items-input:focus {
   outline: none;
+}
+
+.label {
+  font-weight: 600;
+  color: #fff0df;
 }
 
 .name-and-time {
@@ -146,7 +151,7 @@ body {
 }
 
 /* TABLE */
-
+/* 
 .item-table table {
   border-collapse: separate;
   border-spacing: 0 0.6em;
@@ -198,3 +203,9 @@ body {
 .item-table button:active {
   background-color: #ff0000;
 }
+
+.item-name,
+.item-duration,
+.item-type {
+  font-weight: 600;
+} */
