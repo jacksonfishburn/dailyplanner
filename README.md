@@ -52,3 +52,9 @@ For this deliverable I stylized my webpage using CSS.
 * Schedule, item lists and more are responsive to window resizing using flexbox.
 * All font imported, either Montserrat or Archivo Black.  
 * Use of different types of selectors including class, ID and elements such as button, input, header and more. 
+
+## React Deliverable
+For this deliverable I transfered the raw HTML to React components
+* The application is now bundled using Vite
+* All old HTML that was previously seperate html files is now put into various react components
+* React components acting as seperate pages via React router
