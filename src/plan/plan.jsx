@@ -1,8 +1,10 @@
 import React from 'react';
 import './plan.css';
 import { useNavigate } from 'react-router-dom'
+import Schedule from './schedule';
 
 export default function Plan({ items, setItems }) {
+  const [scheduledItems, setScheduledItems] = useState([]);
   const navigate = useNavigate();
   const pixelsPerMinute = 3;
 
@@ -10,6 +12,8 @@ export default function Plan({ items, setItems }) {
     e.preventDefault();
     navigate('/items');
   };
+
+  const oneTime = items.filter(item => !item.isRecurring);
 
   return (
       <div className="plan-container">
@@ -38,28 +42,10 @@ export default function Plan({ items, setItems }) {
         </div>
 
         <section className="schedule">
-          <div className="outside">
-            <h2>Schedule</h2>
-
-            <section className="weather">
-              <div>38° Sunny</div>
-            </section>
-          </div>
-
-            <section className="day-grid">
-              <div className="times">
-                <div className="time">12pm</div>
-                <div className="time">1pm</div>
-                <div className="time">2pm</div>
-                <div className="time">3pm</div>
-              </div>
-              <div className="graph">
-                <div className="slot"></div>
-                <div className="slot"></div>
-                <div className="slot"></div>
-                <div className="slot"></div>
-              </div>
-            </section>
+          <Schedule
+            scheduledItems={scheduledItems}
+            setScheduledItems={setScheduledItems}
+          />
         </section>
 
         <div className="lists">

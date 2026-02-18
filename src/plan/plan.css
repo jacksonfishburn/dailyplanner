@@ -11,9 +11,28 @@
 
 .schedule {
     width: 40vw;
-    min-height: 70vh;
+    height: 70vh;
     display: flex;
     flex-direction: column;
+}
+
+.scroll-area {
+  flex: 1;
+  min-height: 0;    
+  display: flex; 
+  overflow-y: auto;   
+}
+
+.scroll-area {
+  overflow-y: auto;
+
+  scrollbar-width: none;
+
+  -ms-overflow-style: none;
+}
+
+.scroll-area::-webkit-scrollbar {
+  display: none;
 }
 
 .outside {
@@ -50,22 +69,24 @@
 
 .graph {
   flex: 1;
+  overflow: visible;
+  min-height: 0;
 }
 
 .day-grid{
-    display: flex;
-    flex:1;
+  display: flex;
+  min-height:0;
+  flex:1;
 }
 
 .time,
 .slot {
-    flex: 1;
+    flex:0 0 auto;
     display: flex;
     align-items: center;
 }
 
 .slot {
-    height: 1em;
     border: 1px solid rgb(187, 189, 192);
 }
 
@@ -94,19 +115,6 @@
   background: #73aa85;
   border-radius: 9px;
   font-family: "Montserrat", sans-serif;
-}
-
-#shopping,
-#gym {
-    height: 15vh
-}
-
-#assignment {
-    height: 30vh
-}
-
-#class {
-    height: 20vh
 }
 
 
