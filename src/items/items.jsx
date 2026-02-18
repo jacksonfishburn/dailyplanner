@@ -1,12 +1,28 @@
-import React from 'react';
 import './items.css'
+import React, { useState } from 'react';
 
-export default function Items() {
+export default function Items({ items, setItems }) {
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newItem = {
+      name: e.target.itemName.value,
+      time: parseInt(e.target.itemDuration.value),
+      isRecurring: e.target.varRadio.value === 'recurring'
+    };
+    setItems([...items, newItem]);
+    e.target.reset();
+  };
+
+  const handleDelete = (index) => {
+    setItems(items.filter((_, i) => i !== index));
+  };
+
   return (
     <div className='items-container'>
       <section className="add-item">
         <h2>Add Item</h2>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="name-and-time">
             <div>
               <label htmlFor="itemName" className="label">Name</label>
@@ -36,30 +52,14 @@ export default function Items() {
         <h2>Items</h2>
         <table className="item-table">
           <tbody>
-            <tr>
-              <td><span className="list-item-name">Gym</span></td>
-              <td><span className="list-item-duration">45m</span></td>
-              <td><span className="item-type">Recurring</span></td>
-              <td><button type="button">Delete</button></td>
-            </tr>
-            <tr>
-              <td><span className="list-item-name">Class</span></td>
-              <td><span className="list-item-duration">60m</span></td>
-              <td><span className="item-type">Recurring</span></td>
-              <td><button type="button">Delete</button></td>
-            </tr>
-            <tr>
-              <td><span className="list-item-name">Shopping</span></td>
-              <td><span className="list-item-duration">45m</span></td>
-              <td><span className="item-type">One-Time</span></td>
-              <td><button type="button">Delete</button></td>
-            </tr>
-            <tr>
-              <td><span className="list-item-name">Assignment</span></td>
-              <td><span className="list-item-duration">90m</span></td>
-              <td><span className="item-type">One-Time</span></td>
-              <td><button type="button">Delete</button></td>
-            </tr>
+              {items.map((item, index) => (
+                <tr key={index}>
+                  <td><span className="list-item-name">{item.name}</span></td>
+                  <td><span className="list-item-duration">{item.time}m</span></td>
+                  <td><span className="item-type">{item.isRecurring ? 'Recurring' : 'One-Time'}</span></td>
+                  <td><button type="button" onClick={() => handleDelete(index)}>Delete</button></td>
+                </tr>
+              ))}
           </tbody>
         </table> 
       </section>

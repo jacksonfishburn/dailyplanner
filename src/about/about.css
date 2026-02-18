@@ -6,7 +6,9 @@
   background-size: cover;
   background-position: center;
 
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .about-container::before {
@@ -14,11 +16,17 @@
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.511);
-  z-index: 0;
 }
 
-
-.header-content {
-  height: 70px;
+.about-container {
+  position: relative;
 }
 
+.about {
+  position: relative;
+  color: white;
+  max-width: 600px;
+  padding: 2em;
+  font-size: larger;
+  font-weight: 600;
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 import { BrowserRouter, NavLink, Routes, Route } from 'react-router-dom';
@@ -8,6 +8,8 @@ import Items from './items/items';
 import About from './about/about';
 
 export default function App() {
+  const [items, setItems] = useState([]);
+
   return (
     <BrowserRouter>
       <div className="body">
@@ -50,7 +52,7 @@ export default function App() {
         <Routes>
           <Route path='/' element={<Login />} exact />
           <Route path='/plan' element={<Plan />} />
-          <Route path='/items' element={<Items />} />
+          <Route path='/items' element={<Items items={items} setItems={setItems} />} />
           <Route path='/about' element={<About />} />
           <Route path='*' element={<NotFound />} />
         </Routes>  
