@@ -2,8 +2,9 @@ import React from 'react';
 import './plan.css';
 import { useNavigate } from 'react-router-dom'
 
-export default function Plan() {
+export default function Plan({ items, setItems }) {
   const navigate = useNavigate();
+  const pixelsPerMinute = 3;
 
   const handleNavigateToItems = (e) => {
     e.preventDefault();
@@ -20,15 +21,18 @@ export default function Plan() {
             </form>
             </div>
             <section>
-              <ul className='item-list'>
-                <li className="item" id="assignment">
-                  <span className="item-name">Assignment</span>
-                  <span className="item-duration">90m</span>
-                </li>                    
-                <li className="item" id="shopping">
-                  <span className="item-name">Shopping</span>
-                  <span className="item-duration">45m</span>
-                </li>
+              <ul className="item-list">
+                {items
+                  .filter(item => !item.isRecurring)
+                  .map((item, index) => (
+                    <li key={index}
+                      className="item"
+                      style={{ height: `${item.time * pixelsPerMinute}px` }}
+                     >
+                      <span className="item-name">{item.name}</span>
+                      <span className="item-duration">{item.time}m</span>
+                    </li>
+                ))}
               </ul>
             </section>
         </div>
@@ -65,15 +69,19 @@ export default function Plan() {
               <button type="submit" className="plan-add-button">+</button>
             </form>
           </div>
-            <ul className='item-list'>
-              <li className="item" id="gym">
-                <span className="item-name">Gym</span>
-                <span className="item-duration">45m</span>
-              </li>
-              <li className="item" id="class">
-                <span className="item-name">Class</span>
-                <span className="item-duration">60m</span>
-              </li>
+            <ul className="item-list">
+              {items
+                .filter(item => item.isRecurring)
+                .map((item, index) => (
+                  <li 
+                    key={index}
+                    className="item"
+                    style={{ height: `${item.time * pixelsPerMinute}px` }}
+                   >
+                    <span className="item-name">{item.name}</span>
+                    <span className="item-duration">{item.time}m</span>
+                  </li>
+              ))}
             </ul>
         </div>
       </div>

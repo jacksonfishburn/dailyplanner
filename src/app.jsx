@@ -51,7 +51,7 @@ export default function App() {
         <main>
         <Routes>
           <Route path='/' element={<Login />} exact />
-          <Route path='/plan' element={<Plan />} />
+          <Route path='/plan' element={<Plan items={items} setItems={setItems} />} />
           <Route path='/items' element={<Items items={items} setItems={setItems} />} />
           <Route path='/about' element={<About />} />
           <Route path='*' element={<NotFound />} />
