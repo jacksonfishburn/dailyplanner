@@ -11,7 +11,7 @@
 
 .schedule {
     width: 40vw;
-    height: 70vh;
+    min-height: 70vh;
     display: flex;
     flex-direction: column;
 }
@@ -73,7 +73,7 @@
 
 .lists {
     width: 20vw;
-    height: 70vh;
+    min-height: 70vh;
     display: flex;
     flex-direction: column;
   margin-top: 0.8rem;
