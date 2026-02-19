@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './plan.css';
 import { useNavigate } from 'react-router-dom'
 import Schedule from './schedule';
@@ -41,12 +41,10 @@ export default function Plan({ items, setItems }) {
             </section>
         </div>
 
-        <section className="schedule">
-          <Schedule
-            scheduledItems={scheduledItems}
-            setScheduledItems={setScheduledItems}
-          />
-        </section>
+        <Schedule
+          scheduledItems={scheduledItems}
+          setScheduledItems={setScheduledItems}
+        />
 
         <div className="lists">
           <div className="outside">

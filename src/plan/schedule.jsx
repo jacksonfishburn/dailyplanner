@@ -1,10 +1,11 @@
 import React from "react";
 
-export default function Schedule() {
+export default function Schedule({scheduledItems, setScheduledItems}) {
   const pixelsPerMinute = 2;
   const hourHeight = 60 * pixelsPerMinute;
 
   const hours = [8,9,10,11,12,13,14,15,16,17,18,19,20];
+
 
   return (
     <section className="schedule">
@@ -30,9 +31,23 @@ export default function Schedule() {
             {hours.map((h) => (
                 <div key={h} className="slot" style={{ height: `${hourHeight}px` }} />
             ))}
+              <div className="schedule-items">
+                {scheduledItems.map((it, index) => (
+                  <div
+                  key={index}
+                  className="schedule-item"
+                  style={{
+                    top: `${it.startMin * pixelsPerMinute}px`,
+                    height: `${it.time * pixelsPerMinute}px`,
+                  }}
+                  >
+                    <div className="schedule-item-name">{it.name}</div>
+                  </div>
+                ))}
+              </div>
             </div>
         </div>
-</div>
+      </div>
     </section>
   );
 }

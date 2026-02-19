@@ -71,6 +71,19 @@
   flex: 1;
   overflow: visible;
   min-height: 0;
+  position: relative;
+}
+
+.schedule-items { 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  right: 0; 
+}
+.schedule-item { 
+  position: absolute; 
+  left: 0.5rem; 
+  right: 0.5rem; 
 }
 
 .day-grid{
@@ -79,7 +92,12 @@
   flex:1;
 }
 
-.time,
+.time {
+    flex:0 0 auto;
+    display: flex;
+    align-items: flex-start;
+}
+
 .slot {
     flex:0 0 auto;
     display: flex;
@@ -106,7 +124,8 @@
   margin: 0;
 }
 
-.item {
+.item,
+.schedule-item {
   position: relative;
   height: 10vh;
   border: 3px solid #b0d6bd;
@@ -115,6 +134,12 @@
   background: #73aa85;
   border-radius: 9px;
   font-family: "Montserrat", sans-serif;
+  color: #f9f4ee;
+  font-weight: 600;
+}
+
+.schedule-item {
+  position: absolute;
 }
 
 
