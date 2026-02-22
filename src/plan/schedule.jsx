@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-export default function Schedule({ scheduledItems, setScheduledItems, onDrop }) {
+  export default function Schedule({ scheduledItems, setScheduledItems, onDrop, overlapError }) {
   const pixelsPerMinute = 2;
   const hourHeight = 60 * pixelsPerMinute;
   const startHour = 8;
@@ -59,7 +59,7 @@ export default function Schedule({ scheduledItems, setScheduledItems, onDrop }) 
             </div>
 
             <div
-              className={`graph${dragOver ? ' drag-over' : ''}`}
+              className={`graph${dragOver ? ' drag-over' : ''}${overlapError ? ' overlap-error' : ''}`}
               ref={graphRef}
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}

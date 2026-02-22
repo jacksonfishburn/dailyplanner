@@ -8,7 +8,12 @@ import Items from './items/items';
 import About from './about/about';
 
 export default function App() {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState([
+    { name: 'OT Test 1', time: 60, isRecurring: false },
+    { name: 'OT Test 2', time: 45, isRecurring: false },
+    { name: 'R Test 1', time: 30, isRecurring: true },
+    { name: 'R Test 2', time: 90, isRecurring: true },
+  ]);
 
   return (
     <BrowserRouter>

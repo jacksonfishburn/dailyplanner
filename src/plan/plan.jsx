@@ -5,6 +5,7 @@ import Schedule from './schedule';
 
 export default function Plan({ items, setItems }) {
   const [scheduledItems, setScheduledItems] = useState([]);
+  const [overlapError, setOverlapError] = useState(false);
   const navigate = useNavigate();
   const pixelsPerMinute = 3;
 
@@ -14,7 +15,21 @@ export default function Plan({ items, setItems }) {
   };
 
   const handleDropOnSchedule = (item, startMin) => {
+    const endMin = startMin + item.time;
+
     setScheduledItems(prev => {
+      const others = prev.filter(s => s.id !== item.id);
+      const hasOverlap = others.some(s => {
+        const sEnd = s.startMin + s.time;
+        return startMin < sEnd && endMin > s.startMin;
+      });
+
+      if (hasOverlap) {
+        setOverlapError(true);
+        setTimeout(() => setOverlapError(false), 600);
+        return prev; 
+      }
+
       const exists = prev.find(s => s.id === item.id);
       if (exists) {
         return prev.map(s => s.id === item.id ? { ...s, startMin } : s);
@@ -95,4 +110,4 @@ export default function Plan({ items, setItems }) {
         </div>
       </div>
   );
-} 
+}
