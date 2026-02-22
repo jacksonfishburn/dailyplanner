@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import './plan.css';
 import { useNavigate } from 'react-router-dom'
 import Schedule from './schedule';
 
 export default function Plan({ items, setItems }) {
   const [scheduledItems, setScheduledItems] = useState([]);
-  const [overlapError, setOverlapError] = useState(false);
   const navigate = useNavigate();
   const pixelsPerMinute = 3;
 
@@ -14,22 +13,33 @@ export default function Plan({ items, setItems }) {
     navigate('/items');
   };
 
+  const oneTimeItems = useMemo(() =>
+    items
+      .filter(item => !item.isRecurring)
+      .map((item, index) => ({ ...item, id: item.id ?? `one-${index}` })),
+    [items]
+  );
+
+  const recurringItems = useMemo(() =>
+    items
+      .filter(item => item.isRecurring)
+      .map((item, index) => ({ ...item, id: item.id ?? `rec-${index}` })),
+    [items]
+  );
+
+  const scheduledOneTimeIds = new Set(
+    scheduledItems.filter(s => !s.isRecurring).map(s => s.id)
+  );
+
   const handleDropOnSchedule = (item, startMin) => {
     const endMin = startMin + item.time;
-
     setScheduledItems(prev => {
       const others = prev.filter(s => s.id !== item.id);
       const hasOverlap = others.some(s => {
         const sEnd = s.startMin + s.time;
         return startMin < sEnd && endMin > s.startMin;
       });
-
-      if (hasOverlap) {
-        setOverlapError(true);
-        setTimeout(() => setOverlapError(false), 600);
-        return prev; 
-      }
-
+      if (hasOverlap) return prev;
       const exists = prev.find(s => s.id === item.id);
       if (exists) {
         return prev.map(s => s.id === item.id ? { ...s, startMin } : s);
@@ -38,9 +48,23 @@ export default function Plan({ items, setItems }) {
     });
   };
 
+  const handleDropOnList = (e) => {
+    e.preventDefault();
+    const raw = e.dataTransfer.getData('application/json');
+    if (!raw) return;
+    const item = JSON.parse(raw);
+    if (item.source !== 'scheduled') return;
+    setScheduledItems(prev => prev.filter(s => s.id !== item.id));
+  };
+
+  const handleListDragOver = (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  };
+
   return (
       <div className="plan-container">
-        <div className="lists">
+        <div className="lists" onDragOver={handleListDragOver} onDrop={handleDropOnList}>
           <div className="outside">
             <h3>One-time</h3>
             <form onSubmit={handleNavigateToItems}>
@@ -49,14 +73,14 @@ export default function Plan({ items, setItems }) {
             </div>
             <section>
               <ul className="item-list">
-                {items
-                  .filter(item => !item.isRecurring)
-                  .map((item, index) => (
-                    <li key={index}
+                {oneTimeItems
+                  .filter(item => !scheduledOneTimeIds.has(item.id))
+                  .map((item) => (
+                    <li key={item.id}
                       className="item"
                       draggable
                       onDragStart={(e) => {
-                        e.dataTransfer.setData('application/json', JSON.stringify({ ...item, id: item.id ?? `one-${index}` }));
+                        e.dataTransfer.setData('application/json', JSON.stringify(item));
                         e.currentTarget.style.opacity = '0.5';
                       }}
                       onDragEnd={(e) => {
@@ -78,7 +102,7 @@ export default function Plan({ items, setItems }) {
           onDrop={handleDropOnSchedule}
         />
 
-        <div className="lists">
+        <div className="lists" onDragOver={handleListDragOver} onDrop={handleDropOnList}>
           <div className="outside">
             <h3>Recurring</h3>
             <form onSubmit={handleNavigateToItems}>
@@ -86,15 +110,13 @@ export default function Plan({ items, setItems }) {
             </form>
           </div>
             <ul className="item-list">
-              {items
-                .filter(item => item.isRecurring)
-                .map((item, index) => (
-                  <li 
-                    key={index}
+              {recurringItems.map((item) => (
+                  <li
+                    key={item.id}
                     className="item"
                     draggable
                     onDragStart={(e) => {
-                      e.dataTransfer.setData('application/json', JSON.stringify({ ...item, id: item.id ?? `rec-${index}` }));
+                      e.dataTransfer.setData('application/json', JSON.stringify(item));
                       e.currentTarget.style.opacity = '0.5';
                     }}
                     onDragEnd={(e) => {

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-  export default function Schedule({ scheduledItems, setScheduledItems, onDrop, overlapError }) {
+export default function Schedule({ scheduledItems, setScheduledItems, onDrop, overlapError }) {
   const pixelsPerMinute = 2;
   const hourHeight = 60 * pixelsPerMinute;
   const startHour = 8;
@@ -73,9 +73,18 @@ import React, { useRef, useState } from "react";
                   <div
                     key={index}
                     className="schedule-item"
+                    draggable
+                    onDragStart={(e) => {
+                      e.dataTransfer.setData('application/json', JSON.stringify({ ...it, source: 'scheduled' }));
+                      e.currentTarget.style.opacity = '0.4';
+                    }}
+                    onDragEnd={(e) => {
+                      e.currentTarget.style.opacity = '1';
+                    }}
                     style={{
                       top: `${it.startMin * pixelsPerMinute}px`,
                       height: `${Math.max(it.time * pixelsPerMinute, 24)}px`,
+                      cursor: 'grab',
                     }}
                   >
                     <div className="schedule-item-name">{it.name}</div>
