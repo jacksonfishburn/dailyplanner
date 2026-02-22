@@ -210,3 +210,9 @@
   background-color: #000000;
   transform: scale(0.95);
 }
+
+.schedule-item.drag-preview {
+  opacity: 0.4;
+  border-style: dashed;
+  pointer-events: none;
+}
