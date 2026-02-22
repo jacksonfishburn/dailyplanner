@@ -1,5 +1,10 @@
 import React, { useRef, useState } from "react";
 
+function getWeather() {
+  // replace with a real API call later
+  return "52° Cloudy";
+}
+
 export default function Schedule({ scheduledItems, onDrop }) {
   const pixelsPerMinute = 2;
   const hourHeight = 60 * pixelsPerMinute;
@@ -49,8 +54,7 @@ export default function Schedule({ scheduledItems, onDrop }) {
       <div className="outside">
         <h2>Schedule</h2>
         <section className="weather">
-          {/* add call to third party later */}
-          <div>38° Sunny</div>
+          <div>{getWeather()}</div>
         </section>
       </div>
 
