@@ -166,6 +166,25 @@
 }
 
 
+.schedule-item-name {
+  color: #f9f4ee;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.85rem;
+  position: absolute;
+  top: 0.4rem;
+  left: 0.5rem;
+}
+
+.schedule-item-time {
+  color: #ffffff90;
+  font-size: 0.75rem;
+  position: absolute;
+  bottom: 0.3rem;
+  right: 0.5rem;
+}
+
+
 .plan-add-button {
   height: 1.3em;
   width: 1.3em;

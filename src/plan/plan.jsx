@@ -13,7 +13,15 @@ export default function Plan({ items, setItems }) {
     navigate('/items');
   };
 
-  const oneTime = items.filter(item => !item.isRecurring);
+  const handleDropOnSchedule = (item, startMin) => {
+    setScheduledItems(prev => {
+      const exists = prev.find(s => s.id === item.id);
+      if (exists) {
+        return prev.map(s => s.id === item.id ? { ...s, startMin } : s);
+      }
+      return [...prev, { ...item, startMin }];
+    });
+  };
 
   return (
       <div className="plan-container">
@@ -31,7 +39,15 @@ export default function Plan({ items, setItems }) {
                   .map((item, index) => (
                     <li key={index}
                       className="item"
-                      style={{ height: `${item.time * pixelsPerMinute}px` }}
+                      draggable
+                      onDragStart={(e) => {
+                        e.dataTransfer.setData('application/json', JSON.stringify({ ...item, id: item.id ?? `one-${index}` }));
+                        e.currentTarget.style.opacity = '0.5';
+                      }}
+                      onDragEnd={(e) => {
+                        e.currentTarget.style.opacity = '1';
+                      }}
+                      style={{ height: `${item.time * pixelsPerMinute}px`, cursor: 'grab' }}
                      >
                       <span className="item-name">{item.name}</span>
                       <span className="item-duration">{item.time}m</span>
@@ -44,6 +60,7 @@ export default function Plan({ items, setItems }) {
         <Schedule
           scheduledItems={scheduledItems}
           setScheduledItems={setScheduledItems}
+          onDrop={handleDropOnSchedule}
         />
 
         <div className="lists">
@@ -60,7 +77,15 @@ export default function Plan({ items, setItems }) {
                   <li 
                     key={index}
                     className="item"
-                    style={{ height: `${item.time * pixelsPerMinute}px` }}
+                    draggable
+                    onDragStart={(e) => {
+                      e.dataTransfer.setData('application/json', JSON.stringify({ ...item, id: item.id ?? `rec-${index}` }));
+                      e.currentTarget.style.opacity = '0.5';
+                    }}
+                    onDragEnd={(e) => {
+                      e.currentTarget.style.opacity = '1';
+                    }}
+                    style={{ height: `${item.time * pixelsPerMinute}px`, cursor: 'grab' }}
                    >
                     <span className="item-name">{item.name}</span>
                     <span className="item-duration">{item.time}m</span>
