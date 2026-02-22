@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 import { BrowserRouter, NavLink, Routes, Route } from 'react-router-dom';
@@ -6,14 +6,14 @@ import Login from './login/login';
 import Plan from './plan/plan';
 import Items from './items/items';
 import About from './about/about';
+import { db } from './storage';
 
 export default function App() {
-  const [items, setItems] = useState([
-    { name: 'OT Test 1', time: 60, isRecurring: false },
-    { name: 'OT Test 2', time: 45, isRecurring: false },
-    { name: 'R Test 1', time: 30, isRecurring: true },
-    { name: 'R Test 2', time: 90, isRecurring: true },
-  ]);
+  const [items, setItems] = useState(() => db.getItems() ?? []);
+
+  useEffect(() => {
+    db.setItems(items);
+  }, [items]);
 
   return (
     <BrowserRouter>
@@ -25,24 +25,16 @@ export default function App() {
               <nav>
                 <ul className="nav-links">
                   <li>
-                    <NavLink className="nav-link" to="">
-                      Login
-                    </NavLink>
+                    <NavLink className="nav-link" to="">Login</NavLink>
                   </li>
                   <li>
-                    <NavLink className="nav-link" to="plan">
-                      Plan Day
-                    </NavLink>
+                    <NavLink className="nav-link" to="plan">Plan Day</NavLink>
                   </li>
                   <li>
-                    <NavLink className="nav-link" to="items">
-                      Manage Items
-                    </NavLink>
+                    <NavLink className="nav-link" to="items">Manage Items</NavLink>
                   </li>
                   <li>
-                    <NavLink className="nav-link" to="about">
-                      About
-                    </NavLink>
+                    <NavLink className="nav-link" to="about">About</NavLink>
                   </li>
                 </ul>
               </nav>
@@ -54,13 +46,13 @@ export default function App() {
         </header>
 
         <main>
-        <Routes>
-          <Route path='/' element={<Login />} exact />
-          <Route path='/plan' element={<Plan items={items} setItems={setItems} />} />
-          <Route path='/items' element={<Items items={items} setItems={setItems} />} />
-          <Route path='/about' element={<About />} />
-          <Route path='*' element={<NotFound />} />
-        </Routes>  
+          <Routes>
+            <Route path='/' element={<Login />} exact />
+            <Route path='/plan' element={<Plan items={items} setItems={setItems} />} />
+            <Route path='/items' element={<Items items={items} setItems={setItems} />} />
+            <Route path='/about' element={<About />} />
+            <Route path='*' element={<NotFound />} />
+          </Routes>
         </main>
 
         <footer>
@@ -69,10 +61,9 @@ export default function App() {
           <br />
           <a href="https://github.com/jacksonfishburn/dailyplanner">GitHub</a>
         </footer>
-
       </div>
     </BrowserRouter>
-);
+  );
 }
 
 function NotFound() {

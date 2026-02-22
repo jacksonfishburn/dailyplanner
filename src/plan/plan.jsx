@@ -2,19 +2,16 @@ import React, { useState, useMemo, useEffect } from 'react';
 import './plan.css';
 import { useNavigate } from 'react-router-dom';
 import Schedule from './schedule';
-
+import { db } from '../storage';
 
 export default function Plan({ items, setItems }) {
-  const [scheduledItems, setScheduledItems] = useState(() => {
-    const saved = localStorage.getItem('scheduledItems');
-    return saved ? JSON.parse(saved) : [];
-  });
+  const [scheduledItems, setScheduledItems] = useState(() => db.getScheduledItems() ?? []);
   const [listDragOver, setListDragOver] = useState(false);
   const navigate = useNavigate();
   const pixelsPerMinute = 3;
 
   useEffect(() => {
-    localStorage.setItem('scheduledItems', JSON.stringify(scheduledItems));
+    db.setScheduledItems(scheduledItems);
   }, [scheduledItems]);
 
   const oneTimeItems = useMemo(() =>
@@ -70,7 +67,7 @@ export default function Plan({ items, setItems }) {
     draggable: true,
     onDragStart: (e) => {
       const ghost = new Image();
-      e.dataTransfer.setDragImage(ghost, 0, 0);   
+      e.dataTransfer.setDragImage(ghost, 0, 0);
       e.dataTransfer.setData('application/json', JSON.stringify(item));
       window.__dragItem = item;
       window.__dragSource = 'list';
