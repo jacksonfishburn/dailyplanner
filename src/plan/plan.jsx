@@ -32,6 +32,11 @@ export default function Plan({ items, setItems }) {
   const handleDropOnSchedule = (item, startMin) => {
     const endMin = startMin + item.time;
     setScheduledItems(prev => {
+      if (item.isRecurring) {
+        const hasOverlap = prev.some(s => startMin < s.startMin + s.time && endMin > s.startMin);
+        if (hasOverlap) return prev;
+        return [...prev, { ...item, id: crypto.randomUUID(), startMin }];
+      }
       const others = prev.filter(s => s.id !== item.id);
       const hasOverlap = others.some(s => startMin < s.startMin + s.time && endMin > s.startMin);
       if (hasOverlap) return prev;
