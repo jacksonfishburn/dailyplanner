@@ -2,37 +2,34 @@ import React, { useState } from 'react';
 import './login.css';
 import { useNavigate } from 'react-router-dom';
 
-export default function Login({ users, setUsers }) {
+export default function Login({ users, setUsers, setCurrentUser }) {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
+  const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleRegister = () => {
-    if (users.hasOwnProperty(email)) {
-      setErrorMessage('Username taken');
-      return;
-    }
+const handleRegister = () => {
+  if (users.hasOwnProperty(user)) {
+    setErrorMessage('Username taken');
+    return;
+  }
 
-    users[email] = password;
+  const updatedUsers = { ...users, [user]: password };
+  setUsers(updatedUsers);
 
-    setErrorMessage('Registration successful');
-
-    setEmail('');
-    setPassword('');
-    setUsers(users);
-
-    navigate('/plan');
-  };
+  setUser('');
+  setPassword('');
+  setCurrentUser(user);
+  navigate('/plan');
+};
 
   const handleLogin = () => {
-    if (users.hasOwnProperty(email) && users[email] === password) {
-      setErrorMessage('Login successful');
-
-      setEmail('');
+    if (users.hasOwnProperty(user) && users[user] === password) {
+      setUser('');
       setPassword('');
       setUsers(users); 
 
+      setCurrentUser(user);
       navigate('/plan');
     } else {
       setErrorMessage('Username or password not found');
@@ -45,13 +42,13 @@ export default function Login({ users, setUsers }) {
         <h1>Start Planning</h1>
         <form>
           <div className="email">
-            <label>Email:</label>
+            <label>Username:</label>
             <input
               className='login-input'
               type="text"
-              placeholder="Enter email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter username"
+              value={user}
+              onChange={(e) => setUser(e.target.value)}
             />
           </div>
           <div className="password">

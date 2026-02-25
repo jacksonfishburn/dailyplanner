@@ -10,11 +10,16 @@ import { db } from './storage';
 
 export default function App() {
   const [items, setItems] = useState(() => db.getItems() ?? []);
-  const [users, setUsers] = useState(() => db.getUsers() ?? []);
+  const [users, setUsers] = useState(() => db.getUsers() ?? {});
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     db.setItems(items);
   }, [items]);
+
+  useEffect(() => {
+  db.setUsers(users);
+}, [users]);
 
   return (
     <BrowserRouter>
@@ -41,14 +46,14 @@ export default function App() {
               </nav>
             </div>
             <p className="user-banner">
-              <span id="username">User Name</span>
+              <span id="username">{currentUser ? currentUser : 'Sign in'}</span>
             </p>
           </div>
         </header>
 
         <main>
           <Routes>
-            <Route path='/' element={<Login users={users} setUsers={setUsers} />} exact />
+            <Route path='/' element={<Login users={users} setUsers={setUsers} setCurrentUser={setCurrentUser} />} exact />
             <Route path='/plan' element={<Plan items={items} setItems={setItems} />} />
             <Route path='/items' element={<Items items={items} setItems={setItems} />} />
             <Route path='/about' element={<About />} />
