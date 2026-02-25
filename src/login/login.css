@@ -15,6 +15,7 @@
   display: flex;
   flex-direction: column;
   align-items: left;
+  width: 40vh;
 }
 
 .login form {
@@ -78,4 +79,12 @@
 
 .login-button:active {
   background-color: #ee9a70;
+}
+
+.error-message {
+  color: #c42e2e;
+  font-weight: 400;
+  font-size: 1.1rem;
+  align-items: center;
+  text-align: center;
 }

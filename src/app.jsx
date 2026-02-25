@@ -10,6 +10,7 @@ import { db } from './storage';
 
 export default function App() {
   const [items, setItems] = useState(() => db.getItems() ?? []);
+  const [users, setUsers] = useState(() => db.getUsers() ?? []);
 
   useEffect(() => {
     db.setItems(items);
@@ -47,7 +48,7 @@ export default function App() {
 
         <main>
           <Routes>
-            <Route path='/' element={<Login />} exact />
+            <Route path='/' element={<Login users={users} setUsers={setUsers} />} exact />
             <Route path='/plan' element={<Plan items={items} setItems={setItems} />} />
             <Route path='/items' element={<Items items={items} setItems={setItems} />} />
             <Route path='/about' element={<About />} />

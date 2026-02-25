@@ -7,6 +7,14 @@ export const db = {
     localStorage.setItem('items', JSON.stringify(items));
   },
 
+  getUsers: () => {
+    const saved = localStorage.getItem('users');
+    return saved ? JSON.parse(saved) : null;
+  },
+  setUsers: (users) => {
+    localStorage.setItem('users', JSON.stringify(users));
+  },
+
   getScheduledItems: () => {
     const saved = localStorage.getItem('scheduledItems');
     return saved ? JSON.parse(saved) : null;
