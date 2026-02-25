@@ -7,6 +7,7 @@ import Plan from './plan/plan';
 import Items from './items/items';
 import About from './about/about';
 import { db } from './storage';
+import { Navigate } from 'react-router-dom';
 
 export default function App() {
   const [items, setItems] = useState(() => db.getItems() ?? []);
@@ -33,12 +34,16 @@ export default function App() {
                   <li>
                     <NavLink className="nav-link" to="">Login</NavLink>
                   </li>
-                  <li>
-                    <NavLink className="nav-link" to="plan">Plan Day</NavLink>
-                  </li>
-                  <li>
-                    <NavLink className="nav-link" to="items">Manage Items</NavLink>
-                  </li>
+                  {currentUser && (
+                    <>
+                      <li>
+                        <NavLink className="nav-link" to="plan">Plan Day</NavLink>
+                      </li>
+                      <li>
+                        <NavLink className="nav-link" to="items">Manage Items</NavLink>
+                      </li>
+                    </>
+                  )}
                   <li>
                     <NavLink className="nav-link" to="about">About</NavLink>
                   </li>
@@ -54,8 +59,8 @@ export default function App() {
         <main>
           <Routes>
             <Route path='/' element={<Login users={users} setUsers={setUsers} setCurrentUser={setCurrentUser} />} exact />
-            <Route path='/plan' element={<Plan items={items} setItems={setItems} />} />
-            <Route path='/items' element={<Items items={items} setItems={setItems} />} />
+            <Route path='/plan' element={currentUser ? <Plan items={items} setItems={setItems} /> : <Navigate to="/" replace />} />
+            <Route path='/items' element={currentUser ? <Items items={items} setItems={setItems} /> : <Navigate to="/" replace />} />
             <Route path='/about' element={<About />} />
             <Route path='*' element={<NotFound />} />
           </Routes>

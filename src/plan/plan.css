@@ -203,11 +203,11 @@
 }
 
 .plan-add-button:hover {
-  background-color: #a34d1e;
+  background-color: #bf6636;
 }
 
 .plan-add-button:active {
-  background-color: #000000;
+  background-color: #a65021;
   transform: scale(0.95);
 }
 
@@ -241,4 +241,5 @@
 
 .clear-button:active {
   background-color: #a65021;
+  transform: scale(0.95);
 }

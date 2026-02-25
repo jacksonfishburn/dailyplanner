@@ -49,6 +49,7 @@ const handleRegister = () => {
               placeholder="Enter username"
               value={user}
               onChange={(e) => setUser(e.target.value)}
+              required
             />
           </div>
           <div className="password">
@@ -59,6 +60,7 @@ const handleRegister = () => {
               placeholder="Enter password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
           <div className="actions">
