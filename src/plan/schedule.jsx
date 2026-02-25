@@ -5,7 +5,7 @@ function getWeather() {
   return "52° Cloudy";
 }
 
-export default function Schedule({ scheduledItems, onDrop }) {
+export default function Schedule({ scheduledItems, onDrop, onClear }) {
   const pixelsPerMinute = 2;
   const hourHeight = 60 * pixelsPerMinute;
   const hours = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
@@ -125,6 +125,9 @@ export default function Schedule({ scheduledItems, onDrop }) {
             </div>
           </div>
         </div>
+      </div>
+      <div className="schedule-footer">
+        <button className="clear-button" onClick={onClear}>Clear Day</button>
       </div>
     </section>
   );

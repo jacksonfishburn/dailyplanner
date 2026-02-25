@@ -15,21 +15,18 @@ export default function Plan({ items, setItems }) {
   }, [scheduledItems]);
 
   const oneTimeItems = useMemo(() =>
-    items
-      .filter(item => !item.isRecurring)
-      .map((item, index) => ({ ...item, id: item.id ?? `one-${index}` })),
+    items.filter(item => !item.isRecurring),
     [items]
   );
 
   const recurringItems = useMemo(() =>
-    items
-      .filter(item => item.isRecurring)
-      .map((item, index) => ({ ...item, id: item.id ?? `rec-${index}` })),
+    items.filter(item => item.isRecurring),
     [items]
   );
 
-  const scheduledOneTimeIds = new Set(
-    scheduledItems.filter(s => !s.isRecurring).map(s => s.id)
+  const scheduledOneTimeIds = useMemo(() =>
+    new Set(scheduledItems.filter(s => !s.isRecurring).map(s => s.id)),
+    [scheduledItems]
   );
 
   const handleDropOnSchedule = (item, startMin) => {
@@ -62,6 +59,12 @@ export default function Plan({ items, setItems }) {
   };
 
   const handleListDragLeave = () => setListDragOver(false);
+
+  const handleClear = () => {
+    const toDelete = new Set(scheduledItems.filter(s => !s.isRecurring).map(s => s.id));
+    setItems(prev => prev.filter(item => !toDelete.has(item.id)));
+    setScheduledItems([]);
+  };
 
   const itemProps = (item) => ({
     draggable: true,
@@ -111,6 +114,7 @@ export default function Plan({ items, setItems }) {
       <Schedule
         scheduledItems={scheduledItems}
         onDrop={handleDropOnSchedule}
+        onClear={handleClear}
       />
 
       <div className={`lists${listDragOver ? ' list-drop-target' : ''}`} {...listProps}>

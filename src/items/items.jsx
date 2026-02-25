@@ -6,6 +6,7 @@ export default function Items({ items, setItems }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newItem = {
+      id: crypto.randomUUID(),
       name: e.target.itemName.value,
       time: parseInt(e.target.itemDuration.value),
       isRecurring: e.target.varRadio.value === 'recurring'
@@ -53,7 +54,7 @@ export default function Items({ items, setItems }) {
         <table className="item-table">
           <tbody>
               {items.map((item, index) => (
-                <tr key={index}>
+                <tr key={item.id}>
                   <td><span className="list-item-name">{item.name}</span></td>
                   <td><span className="list-item-duration">{item.time}m</span></td>
                   <td><span className="item-type">{item.isRecurring ? 'Recurring' : 'One-Time'}</span></td>

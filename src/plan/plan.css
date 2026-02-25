@@ -216,3 +216,29 @@
   border-style: dashed;
   pointer-events: none;
 }
+
+.schedule-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+
+.clear-button {
+  padding: 0.3rem 1rem;
+  border-radius: 10px;
+  border: 2px solid #c36836;
+  background-color: #ea804c;
+  color: #fff0df;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.clear-button:hover {
+  background-color: #bf6636;
+}
+
+.clear-button:active {
+  background-color: #a65021;
+}
