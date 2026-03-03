@@ -104,16 +104,18 @@ export default function Plan({ items, setItems }) {
             <button type="submit" className="plan-add-button">+</button>
           </form>
         </div>
-        <ul className="item-list">
-          {oneTimeItems
-            .filter(item => !scheduledOneTimeIds.has(item.id))
-            .map(item => (
-              <li key={item.id} className="item" {...itemProps(item)}>
-                <span className="item-name">{item.name}</span>
-                <span className="item-duration">{item.time}m</span>
-              </li>
-            ))}
-        </ul>
+        <div className="item-list-scroll">
+          <ul className="item-list">
+            {oneTimeItems
+              .filter(item => !scheduledOneTimeIds.has(item.id))
+              .map(item => (
+                <li key={item.id} className="item" {...itemProps(item)}>
+                  <span className="item-name">{item.name}</span>
+                  <span className="item-duration">{item.time}m</span>
+                </li>
+              ))}
+          </ul>
+        </div>
       </div>
 
       <Schedule
@@ -129,14 +131,16 @@ export default function Plan({ items, setItems }) {
             <button type="submit" className="plan-add-button">+</button>
           </form>
         </div>
-        <ul className="item-list">
-          {recurringItems.map(item => (
-            <li key={item.id} className="item" {...itemProps(item)}>
-              <span className="item-name">{item.name}</span>
-              <span className="item-duration">{item.time}m</span>
-            </li>
-          ))}
-        </ul>
+        <div className="item-list-scroll">
+          <ul className="item-list">
+            {recurringItems.map(item => (
+              <li key={item.id} className="item" {...itemProps(item)}>
+                <span className="item-name">{item.name}</span>
+                <span className="item-duration">{item.time}m</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );

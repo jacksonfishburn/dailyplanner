@@ -112,10 +112,22 @@
 
 .lists {
     width: 20vw;
-    min-height: 70vh;
+    height: 70vh;
     display: flex;
     flex-direction: column;
-  margin-top: 0.8rem;
+    margin-top: 0.8rem;
+}
+
+.item-list-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.item-list-scroll::-webkit-scrollbar {
+  display: none;
 }
 
 .item-list {
