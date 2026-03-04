@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const serviceUrl = 'http://localhost:3000';
 
-export default function Login({ setCurrentUser, setItems, setSchedule }) {
+export default function Login({ currentUser, setCurrentUser, setItems, setSchedule }) {
   const navigate = useNavigate();
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
@@ -50,7 +50,7 @@ export default function Login({ setCurrentUser, setItems, setSchedule }) {
       const data = await response.json().catch(() => ({}));
 
       if (!response.ok) {
-        setErrorMessage(data.msg);
+        setErrorMessage(data.message || data.msg || 'Login failed');
         return;
       }
 
@@ -65,6 +65,39 @@ export default function Login({ setCurrentUser, setItems, setSchedule }) {
       setErrorMessage('Unable to reach service');
     }
   };
+
+  const handleLogout = async () => {
+    try {
+      await fetch(`${serviceUrl}/session`, {
+        method: 'DELETE',
+        credentials: 'include',
+      });
+    } finally {
+      setCurrentUser(null);
+      setItems([]);
+      setSchedule([]);
+      setUser('');
+      setPassword('');
+      setErrorMessage('');
+    }
+  };
+
+  if (currentUser) {
+    return (
+      <div className='login-container'>
+        <section className="login">
+          <h1>Start Planning</h1>
+          <form>
+          <p>Signed in as <strong>{currentUser}</strong></p>
+          <div className="actions">
+            <button className='login-button' type="button" onClick={() => navigate('/plan')}>Go to Plan</button>
+            <button className='login-button' type="button" onClick={handleLogout}>Logout</button>
+          </div>
+          </form>
+        </section>
+      </div>
+    );
+  }
 
   return (
     <div className='login-container'>

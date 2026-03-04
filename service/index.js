@@ -4,12 +4,20 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 const uuid = require('uuid');
+const cors = require('cors');
 
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
 const authCookieName = 'token';
 
 app.use(cookieParser());
 app.use(express.json());
+
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  })
+);
 
 const users = {};
 
