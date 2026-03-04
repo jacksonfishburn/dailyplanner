@@ -10,8 +10,8 @@ import { db } from './storage';
 import { Navigate } from 'react-router-dom';
 
 export default function App() {
-  const [items, setItems] = useState(() => db.getItems() ?? []);
-  const [schedule, setSchedule] = useState(() => db.getScheduledItems() ?? []);
+  const [items, setItems] = useState([]);
+  const [schedule, setSchedule] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {

@@ -1,18 +1,39 @@
 import './items.css'
 import React, { useState } from 'react';
 
-export default function Items({ items, setItems }) {
+const serviceUrl = 'http://localhost:3000';
 
-  const handleSubmit = (e) => {
+export default function Items({ items, setItems }) {
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const newItem = {
-      id: crypto.randomUUID(),
+    const payload = {
       name: e.target.itemName.value,
-      time: parseInt(e.target.itemDuration.value),
-      isRecurring: e.target.varRadio.value === 'recurring'
+      time: parseInt(e.target.itemDuration.value, 10),
+      isRecurring: e.target.varRadio.value === 'recurring',
     };
-    setItems([...items, newItem]);
-    e.target.reset();
+
+    try {
+      const response = await fetch(`${serviceUrl}/item`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        setErrorMessage(data.message || data.msg || 'Unable to add item');
+        return;
+      }
+
+      setErrorMessage('');
+      setItems(data.items ?? []);
+      e.target.reset();
+    } catch {
+      setErrorMessage('Unable to reach service');
+    }
   };
 
   const handleDelete = (index) => {
@@ -46,6 +67,7 @@ export default function Items({ items, setItems }) {
             </fieldset>
           </div>
           <button type="submit" className="add-item-button">Add Item</button>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
         </form>
       </section>
         
