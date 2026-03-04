@@ -2,37 +2,67 @@ import React, { useState } from 'react';
 import './login.css';
 import { useNavigate } from 'react-router-dom';
 
-export default function Login({ users, setUsers, setCurrentUser }) {
+const serviceUrl = 'http://localhost:3000';
+
+export default function Login({ setCurrentUser, setItems, setSchedule }) {
   const navigate = useNavigate();
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-const handleRegister = () => {
-  if (users.hasOwnProperty(user)) {
-    setErrorMessage('Username taken');
-    return;
-  }
+  const handleRegister = async () => {
+    try {
+      const response = await fetch(`${serviceUrl}/user`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ username: user, password }),
+      });
 
-  const updatedUsers = { ...users, [user]: password };
-  setUsers(updatedUsers);
+      const data = await response.json().catch(() => ({}));
 
-  setUser('');
-  setPassword('');
-  setCurrentUser(user);
-  navigate('/plan');
-};
+      if (!response.ok) {
+        setErrorMessage(data.message || data.msg || 'Register failed');
+        return;
+      }
 
-  const handleLogin = () => {
-    if (users.hasOwnProperty(user) && users[user] === password) {
+      setErrorMessage('');
+      setCurrentUser(data.username);
+      setItems([]);
+      setSchedule([]);
       setUser('');
       setPassword('');
-      setUsers(users); 
-
-      setCurrentUser(user);
       navigate('/plan');
-    } else {
-      setErrorMessage('Username or password not found');
+    } catch {
+      setErrorMessage('Unable to reach service');
+    }
+  };
+
+  const handleLogin = async () => {
+    try {
+      const response = await fetch(`${serviceUrl}/session`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ username: user, password }),
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        setErrorMessage(data.msg);
+        return;
+      }
+
+      setErrorMessage('');
+      setItems(data.items ?? []);
+      setSchedule(data.schedule ?? []);
+      setCurrentUser(data.username);
+      setUser('');
+      setPassword('');
+      navigate('/plan');
+    } catch {
+      setErrorMessage('Unable to reach service');
     }
   };
 

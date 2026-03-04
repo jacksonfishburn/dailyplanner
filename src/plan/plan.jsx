@@ -1,18 +1,12 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import './plan.css';
 import { useNavigate } from 'react-router-dom';
 import Schedule from './schedule';
-import { db } from '../storage';
 
-export default function Plan({ items, setItems }) {
-  const [scheduledItems, setScheduledItems] = useState(() => db.getScheduledItems() ?? []);
+export default function Plan({ items, setItems, schedule, setSchedule }) {
   const [listDragOver, setListDragOver] = useState(false);
   const navigate = useNavigate();
   const pixelsPerMinute = 3;
-
-  useEffect(() => {
-    db.setScheduledItems(scheduledItems);
-  }, [scheduledItems]);
 
   const oneTimeItems = useMemo(() =>
     items.filter(item => !item.isRecurring),
@@ -25,13 +19,13 @@ export default function Plan({ items, setItems }) {
   );
 
   const scheduledOneTimeIds = useMemo(() =>
-    new Set(scheduledItems.filter(s => !s.isRecurring).map(s => s.id)),
-    [scheduledItems]
+    new Set(schedule.filter(s => !s.isRecurring).map(s => s.id)),
+    [schedule]
   );
 
   const handleDropOnSchedule = (item, startMin) => {
     const endMin = startMin + item.time;
-    setScheduledItems(prev => {
+    setSchedule(prev => {
       if (item.isRecurring) {
         const hasOverlap = prev.some(s => startMin < s.startMin + s.time && endMin > s.startMin);
         if (hasOverlap) return prev;
@@ -53,7 +47,7 @@ export default function Plan({ items, setItems }) {
     if (!raw) return;
     const item = JSON.parse(raw);
     if (item.source !== 'scheduled') return;
-    setScheduledItems(prev => prev.filter(s => s.id !== item.id));
+    setSchedule(prev => prev.filter(s => s.id !== item.id));
   };
 
   const handleListDragOver = (e) => {
@@ -66,9 +60,9 @@ export default function Plan({ items, setItems }) {
   const handleListDragLeave = () => setListDragOver(false);
 
   const handleClear = () => {
-    const toDelete = new Set(scheduledItems.filter(s => !s.isRecurring).map(s => s.id));
+    const toDelete = new Set(schedule.filter(s => !s.isRecurring).map(s => s.id));
     setItems(prev => prev.filter(item => !toDelete.has(item.id)));
-    setScheduledItems([]);
+    setSchedule([]);
   };
 
   const itemProps = (item) => ({
@@ -119,7 +113,7 @@ export default function Plan({ items, setItems }) {
       </div>
 
       <Schedule
-        scheduledItems={scheduledItems}
+        schedule={schedule}
         onDrop={handleDropOnSchedule}
         onClear={handleClear}
       />

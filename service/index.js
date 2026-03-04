@@ -21,7 +21,7 @@ app.post('/user', async (req, res) => {
   }
 
   if (users[username]) {
-    return res.status(409).send({ msg: 'existing user' });
+    return res.status(409).send({ msg: 'Existing user' });
   }
 
   const passwordHash = await bcrypt.hash(password, 10);
@@ -69,7 +69,7 @@ app.post('/session', async (req, res) => {
 });
 
 app.delete('/session', (req, res) => {
-  const user = getUser('authToken', authCookieName);
+  const user = getUser('authToken', req.cookies?.[authCookieName]);
   if (user) {
     delete user.authToken;
   }

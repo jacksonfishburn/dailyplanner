@@ -11,7 +11,7 @@ import { Navigate } from 'react-router-dom';
 
 export default function App() {
   const [items, setItems] = useState(() => db.getItems() ?? []);
-  const [users, setUsers] = useState(() => db.getUsers() ?? {});
+  const [schedule, setSchedule] = useState(() => db.getScheduledItems() ?? []);
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
@@ -19,8 +19,8 @@ export default function App() {
   }, [items]);
 
   useEffect(() => {
-  db.setUsers(users);
-}, [users]);
+    db.setScheduledItems(schedule);
+  }, [schedule]);
 
   return (
     <BrowserRouter>
@@ -58,8 +58,8 @@ export default function App() {
 
         <main>
           <Routes>
-            <Route path='/' element={<Login users={users} setUsers={setUsers} setCurrentUser={setCurrentUser} />} exact />
-            <Route path='/plan' element={currentUser ? <Plan items={items} setItems={setItems} /> : <Navigate to="/" replace />} />
+            <Route path='/' element={<Login setCurrentUser={setCurrentUser} setItems={setItems} setSchedule={setSchedule} />} exact />
+            <Route path='/plan' element={currentUser ? <Plan items={items} setItems={setItems} schedule={schedule} setSchedule={setSchedule} /> : <Navigate to="/" replace />} />
             <Route path='/items' element={currentUser ? <Items items={items} setItems={setItems} /> : <Navigate to="/" replace />} />
             <Route path='/about' element={<About />} />
             <Route path='*' element={<NotFound />} />

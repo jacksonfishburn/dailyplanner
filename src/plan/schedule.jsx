@@ -5,7 +5,7 @@ function getWeather() {
   return "52° Cloudy";
 }
 
-export default function Schedule({ scheduledItems, onDrop, onClear }) {
+export default function Schedule({ schedule, onDrop, onClear }) {
   const pixelsPerMinute = 2;
   const hourHeight = 60 * pixelsPerMinute;
   const hours = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
@@ -94,7 +94,7 @@ export default function Schedule({ scheduledItems, onDrop, onClear }) {
                 </div>
               )}
 
-              {scheduledItems.map((it, index) => (
+              {schedule.map((it, index) => (
                 <div
                   key={index}
                   className="schedule-item"
