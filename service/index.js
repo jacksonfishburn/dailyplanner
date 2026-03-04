@@ -68,12 +68,30 @@ app.post('/session', async (req, res) => {
   });
 });
 
+app.delete('/session', (req, res) => {
+  const user = getUser('authToken', authCookieName);
+  if (user) {
+    delete user.authToken;
+  }
+
+  res.clearCookie(authCookieName);
+
+  return res.status(204).send();
+});
+
+
+function getUser(field, value) {
+  if (!value) return null;
+
+  return Object.values(users).find((user) => user[field] === value);
+}
+
 
 
 function setAuthCookie(res, authToken) {
   res.cookie(authCookieName, authToken, {
     maxAge: 1000 * 60 * 60 * 24 * 365,
-    secure: false, // change for production
+    secure: false, // make true for production
     httpOnly: true,
     sameSite: 'strict',
   });
