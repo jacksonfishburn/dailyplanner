@@ -27,6 +27,13 @@ export default function Plan({ items, setItems, schedule, setSchedule }) {
     const endMin = startMin + item.time;
     setSchedule(prev => {
       if (item.isRecurring) {
+        if (item.source === 'scheduled') {
+          const others = prev.filter(s => s.id !== item.id);
+          const hasOverlap = others.some(s => startMin < s.startMin + s.time && endMin > s.startMin);
+          if (hasOverlap) return prev;
+          return prev.map(s => s.id === item.id ? { ...s, startMin } : s);
+        }
+
         const hasOverlap = prev.some(s => startMin < s.startMin + s.time && endMin > s.startMin);
         if (hasOverlap) return prev;
         return [...prev, { ...item, id: crypto.randomUUID(), startMin }];
@@ -70,7 +77,7 @@ export default function Plan({ items, setItems, schedule, setSchedule }) {
     onDragStart: (e) => {
       const ghost = new Image();
       e.dataTransfer.setDragImage(ghost, 0, 0);
-      e.dataTransfer.setData('application/json', JSON.stringify(item));
+      e.dataTransfer.setData('application/json', JSON.stringify({ ...item, source: 'list' }));
       window.__dragItem = item;
       window.__dragSource = 'list';
       e.currentTarget.style.opacity = '0.5';
