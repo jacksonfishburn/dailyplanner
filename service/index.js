@@ -40,6 +40,34 @@ app.post('/user', async (req, res) => {
   return res.status(201).send({ username });
 });
 
+app.post('/session', async (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).send({ msg: 'username and password required' });
+  }
+
+  const user = users[username];
+  if (!user) {
+    return res.status(401).send({ msg: 'User not found' });
+  }
+
+  const passwordMatches = await bcrypt.compare(password, user.passwordHash);
+  if (!passwordMatches) {
+    return res.status(401).send({ msg: 'Incorrect password' });
+  }
+
+  const authToken = uuid.v4();
+  user.authToken = authToken;
+  setAuthCookie(res, authToken);
+
+  return res.status(200).send({
+    username: user.username,
+    items: user.items,
+    schedule: user.schedule,
+  });
+});
+
 
 
 function setAuthCookie(res, authToken) {
