@@ -87,6 +87,31 @@ app.delete('/session', (req, res) => {
   return res.status(204).send();
 });
 
+app.post('/item', (req, res) => {
+  const user = getUser('authToken', req.cookies?.[authCookieName]);
+  if (!user) {
+    return res.status(401).send({ msg: 'Unauthorized' });
+  }
+
+  const { name, time, isRecurring } = req.body;
+  if (!name || !Number.isFinite(time) || time <= 0 || typeof isRecurring !== 'boolean') {
+    return res.status(400).send({ msg: 'Invalid item payload' });
+  }
+
+  const newItem = {
+    id: uuid.v4(),
+    name,
+    time,
+    isRecurring,
+  };
+
+  user.items.push(newItem);
+  return res.status(201).send({ items: user.items });
+});
+
+
+
+
 
 function getUser(field, value) {
   if (!value) return null;
