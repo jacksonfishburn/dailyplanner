@@ -109,8 +109,25 @@ app.post('/item', (req, res) => {
   return res.status(201).send({ items: user.items });
 });
 
+app.delete('/item/:id', (req, res) => {
+  const user = getUser('authToken', req.cookies?.[authCookieName]);
+  if (!user) {
+    return res.status(401).send({ msg: 'Unauthorized' });
+  }
 
+  const { id } = req.params;
+  if (!id) {
+    return res.status(400).send({ msg: 'Item id is required' });
+  }
 
+  const itemIndex = user.items.findIndex((item) => item.id === id);
+  if (itemIndex === -1) {
+    return res.status(404).send({ msg: 'Item not found' });
+  }
+
+  user.items.splice(itemIndex, 1);
+  return res.status(200).send({ items: user.items });
+});
 
 
 function getUser(field, value) {
@@ -118,8 +135,6 @@ function getUser(field, value) {
 
   return Object.values(users).find((user) => user[field] === value);
 }
-
-
 
 function setAuthCookie(res, authToken) {
   res.cookie(authCookieName, authToken, {

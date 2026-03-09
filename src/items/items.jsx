@@ -36,8 +36,24 @@ export default function Items({ items, setItems }) {
     }
   };
 
-  const handleDelete = (index) => {
-    setItems(items.filter((_, i) => i !== index));
+  const handleDelete = async (itemId) => {
+    try {
+      const response = await fetch(`${serviceUrl}/item/${itemId}`, {
+        method: 'DELETE',
+        credentials: 'include',
+      });
+
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        setErrorMessage(data.message || data.msg || 'Unable to delete item');
+        return;
+      }
+
+      setErrorMessage('');
+      setItems(data.items ?? []);
+    } catch {
+      setErrorMessage('Unable to reach service');
+    }
   };
 
   return (
@@ -75,12 +91,12 @@ export default function Items({ items, setItems }) {
         <h2>Items</h2>
         <table className="item-table">
           <tbody>
-              {items.map((item, index) => (
+              {items.map((item) => (
                 <tr key={item.id}>
                   <td><span className="list-item-name">{item.name}</span></td>
                   <td><span className="list-item-duration">{item.time}m</span></td>
                   <td><span className="item-type">{item.isRecurring ? 'Recurring' : 'One-Time'}</span></td>
-                  <td><button type="button" onClick={() => handleDelete(index)}>Delete</button></td>
+                  <td><button type="button" onClick={() => handleDelete(item.id)}>Delete</button></td>
                 </tr>
               ))}
           </tbody>
