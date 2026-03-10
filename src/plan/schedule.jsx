@@ -1,12 +1,29 @@
 import React, { useEffect, useRef, useState } from "react";
 
-
 async function fetchOpenMeteoWeather() {
-  const latitude = 40.2338;
-  const longitude = -111.6585;
+  const defaultCoords = { latitude: 40.2338, longitude: -111.6585 };
+
+  const coords = await new Promise((resolve) => {
+    if (!navigator.geolocation) {
+      resolve(defaultCoords);
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        resolve({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      },
+      () => resolve(defaultCoords),
+      { timeout: 5000 }
+    );
+  });
 
   const weatherRes = await fetch(
-    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&temperature_unit=fahrenheit`  );
+    `https://api.open-meteo.com/v1/forecast?latitude=${coords.latitude}&longitude=${coords.longitude}&current_weather=true&temperature_unit=fahrenheit`
+  );
 
   if (!weatherRes.ok) {
     throw new Error('Weather request failed');
