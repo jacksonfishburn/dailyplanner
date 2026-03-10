@@ -1,8 +1,53 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-function getWeather() {
-  // replace with a real API call later
-  return "52° Cloudy";
+
+async function fetchOpenMeteoWeather() {
+  const latitude = 40.2338;
+  const longitude = -111.6585;
+
+  const weatherRes = await fetch(
+    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&temperature_unit=fahrenheit`  );
+
+  if (!weatherRes.ok) {
+    throw new Error('Weather request failed');
+  }
+
+  const weather = await weatherRes.json();
+  const current = weather?.current_weather;
+  if (!current || typeof current.temperature !== 'number') {
+    throw new Error('Weather data missing');
+  }
+
+  return {
+    temperature: Math.round(current.temperature),
+    weatherCode: current.weathercode,
+  };
+}
+
+async function getWeather() {
+  const { temperature, weatherCode } = await fetchOpenMeteoWeather();
+
+  let condition = 'Cloudy';
+  if (weatherCode === 0) {
+    condition = 'Sunny';
+  } else if (weatherCode === 1 || weatherCode === 2) {
+    condition = 'Partly Cloudy';
+  } else if (
+    weatherCode === 51 || weatherCode === 53 || weatherCode === 55 ||
+    weatherCode === 56 || weatherCode === 57 ||
+    weatherCode === 61 || weatherCode === 63 || weatherCode === 65 ||
+    weatherCode === 66 || weatherCode === 67 ||
+    weatherCode === 80 || weatherCode === 81 || weatherCode === 82
+  ) {
+    condition = 'Raining';
+  } else if (
+    weatherCode === 71 || weatherCode === 73 || weatherCode === 75 ||
+    weatherCode === 77 || weatherCode === 85 || weatherCode === 86
+  ) {
+    condition = 'Snowing';
+  }
+
+  return `${temperature}° ${condition}`;
 }
 
 export default function Schedule({ schedule, onDrop, onClear }) {
@@ -13,6 +58,30 @@ export default function Schedule({ schedule, onDrop, onClear }) {
   const graphRef = useRef(null);
   const [dragOver, setDragOver] = useState(false);
   const [dragPreview, setDragPreview] = useState(null);
+  const [weatherText, setWeatherText] = useState('Loading weather...');
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadWeather() {
+      try {
+        const weather = await getWeather();
+        if (active) {
+          setWeatherText(weather);
+        }
+      } catch {
+        if (active) {
+          setWeatherText('Weather unavailable');
+        }
+      }
+    }
+
+    loadWeather();
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const getStartMin = (clientY) => {
     const rect = graphRef.current.getBoundingClientRect();
@@ -54,7 +123,7 @@ export default function Schedule({ schedule, onDrop, onClear }) {
       <div className="outside">
         <h2>Schedule</h2>
         <section className="weather">
-          <div>{getWeather()}</div>
+          <div>{weatherText}</div>
         </section>
       </div>
 
