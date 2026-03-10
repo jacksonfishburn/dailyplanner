@@ -129,6 +129,62 @@ app.delete('/item/:id', (req, res) => {
   return res.status(200).send({ items: user.items });
 });
 
+app.post('/schedule', (req, res) => {
+  const user = getUser('authToken', req.cookies?.[authCookieName]);
+  if (!user) {
+    return res.status(401).send({ msg: 'Unauthorized' });
+  }
+
+  const { id, name, time, isRecurring, startMin } = req.body;
+  const hasValidId = id === undefined || (typeof id === 'string' && id.length > 0);
+  if (
+    !hasValidId ||
+    !name ||
+    !Number.isFinite(time) || time <= 0 ||
+    typeof isRecurring !== 'boolean' ||
+    !Number.isFinite(startMin) || startMin < 0
+  ) {
+    return res.status(400).send({ msg: 'Invalid schedule payload' });
+  }
+
+  const newScheduleItem = {
+    id: id ?? uuid.v4(),
+    name,
+    time,
+    isRecurring,
+    startMin,
+  };
+
+  const existingIndex = user.schedule.findIndex((entry) => entry.id === newScheduleItem.id);
+  if (existingIndex !== -1) {
+    user.schedule[existingIndex] = newScheduleItem;
+  } else {
+    user.schedule.push(newScheduleItem);
+  }
+
+  return res.status(201).send({ schedule: user.schedule });
+});
+
+app.delete('/schedule/:id', (req, res) => {
+  const user = getUser('authToken', req.cookies?.[authCookieName]);
+  if (!user) {
+    return res.status(401).send({ msg: 'Unauthorized' });
+  }
+
+  const { id } = req.params;
+  if (!id) {
+    return res.status(400).send({ msg: 'Schedule id is required' });
+  }
+
+  const scheduleIndex = user.schedule.findIndex((entry) => entry.id === id);
+  if (scheduleIndex === -1) {
+    return res.status(404).send({ msg: 'Schedule item not found' });
+  }
+
+  user.schedule.splice(scheduleIndex, 1);
+  return res.status(200).send({ schedule: user.schedule });
+});
+
 
 function getUser(field, value) {
   if (!value) return null;
