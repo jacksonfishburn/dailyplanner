@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
@@ -11,7 +12,7 @@ const authCookieName = 'token';
 
 app.use(cookieParser());
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, '..', 'dist')));
 
 app.use(
   cors({
@@ -204,6 +205,14 @@ function setAuthCookie(res, authToken) {
 
 app.get('/api', (_req, res) => {
   res.send({ msg: 'service functional' });
+});
+
+app.use((req, res, next) => {
+  if (req.path.startsWith('/api')) {
+    return next();
+  }
+
+  return res.sendFile(path.join(__dirname, '..', 'dist', 'index.html'));
 });
 
 app.listen(port, () => {
