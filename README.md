@@ -66,3 +66,13 @@ For this deliverable I added the complete functionality of the site, as well as 
   - Add/delete items from list
   - Drag and drop those items to the schedule
 * Used UseState and UseEffect throughout to implement said functionality
+
+## Service Deliverable
+For this deliverable I added backend endpoints to login/logout users, as well as add/remove items from item list and schedule
+* Service using Node.js and Express
+* Frontend served up using Express static middleware
+* Frontend calls third party api for weather
+* Backend provides service endpoints
+* Frontend calls service endpoints
+* Supports registration, login, logout, and restricted endpoint
+* Uses BCrypt to hash passwords
