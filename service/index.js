@@ -22,7 +22,7 @@ app.use(
 
 const users = {};
 
-app.post('/user', async (req, res) => {
+app.post('/api/user', async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -49,7 +49,7 @@ app.post('/user', async (req, res) => {
   return res.status(201).send({ username });
 });
 
-app.post('/session', async (req, res) => {
+app.post('/api/session', async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -77,7 +77,7 @@ app.post('/session', async (req, res) => {
   });
 });
 
-app.delete('/session', (req, res) => {
+app.delete('/api/session', (req, res) => {
   const user = getUser('authToken', req.cookies?.[authCookieName]);
   if (user) {
     delete user.authToken;
@@ -88,7 +88,7 @@ app.delete('/session', (req, res) => {
   return res.status(204).send();
 });
 
-app.post('/item', (req, res) => {
+app.post('/api/item', (req, res) => {
   const user = getUser('authToken', req.cookies?.[authCookieName]);
   if (!user) {
     return res.status(401).send({ msg: 'Unauthorized' });
@@ -110,7 +110,7 @@ app.post('/item', (req, res) => {
   return res.status(201).send({ items: user.items });
 });
 
-app.delete('/item/:id', (req, res) => {
+app.delete('/api/item/:id', (req, res) => {
   const user = getUser('authToken', req.cookies?.[authCookieName]);
   if (!user) {
     return res.status(401).send({ msg: 'Unauthorized' });
@@ -130,7 +130,7 @@ app.delete('/item/:id', (req, res) => {
   return res.status(200).send({ items: user.items });
 });
 
-app.post('/schedule', (req, res) => {
+app.post('/api/schedule', (req, res) => {
   const user = getUser('authToken', req.cookies?.[authCookieName]);
   if (!user) {
     return res.status(401).send({ msg: 'Unauthorized' });
@@ -166,7 +166,7 @@ app.post('/schedule', (req, res) => {
   return res.status(201).send({ schedule: user.schedule });
 });
 
-app.delete('/schedule/:id', (req, res) => {
+app.delete('/api/schedule/:id', (req, res) => {
   const user = getUser('authToken', req.cookies?.[authCookieName]);
   if (!user) {
     return res.status(401).send({ msg: 'Unauthorized' });
@@ -202,7 +202,7 @@ function setAuthCookie(res, authToken) {
   });
 }
 
-app.get('/', (_req, res) => {
+app.get('/api', (_req, res) => {
   res.send({ msg: 'service functional' });
 });
 

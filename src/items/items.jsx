@@ -1,7 +1,7 @@
 import './items.css'
 import React, { useState } from 'react';
 
-const serviceUrl = 'http://localhost:4000';
+const serviceUrl = '/api';
 
 export default function Items({ items, setItems }) {
   const [errorMessage, setErrorMessage] = useState('');

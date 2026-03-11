@@ -3,7 +3,7 @@ import './plan.css';
 import { useNavigate } from 'react-router-dom';
 import Schedule from './schedule';
 
-const serviceUrl = 'http://localhost:4000';
+const serviceUrl = '/api';
 
 export default function Plan({ items, setItems, schedule, setSchedule }) {
   const [listDragOver, setListDragOver] = useState(false);

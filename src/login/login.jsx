@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './login.css';
 import { useNavigate } from 'react-router-dom';
 
-const serviceUrl = 'http://localhost:4000';
+const serviceUrl = '/api';
 
 export default function Login({ currentUser, setCurrentUser, setItems, setSchedule }) {
   const navigate = useNavigate();
