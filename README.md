@@ -53,8 +53,16 @@ For this deliverable I stylized my webpage using CSS.
 * All font imported, either Montserrat or Archivo Black.  
 * Use of different types of selectors including class, ID and elements such as button, input, header and more. 
 
-## React Deliverable
+## React Phase 1 Deliverable
 For this deliverable I transfered the raw HTML to React components
 * The application is now bundled using Vite
 * All old HTML that was previously seperate html files is now put into various react components
 * React components acting as seperate pages via React router
+
+## React Phase 2 Deliverable
+For this deliverable I added the complete functionality of the site, as well as placeholders for future additions.
+* All functionality working or mocked out
+  - Sign in to plan
+  - Add/delete items from list
+  - Drag and drop those items to the schedule
+* Used UseState and UseEffect throughout to implement said functionality
