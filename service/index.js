@@ -6,11 +6,12 @@ const bcrypt = require('bcryptjs');
 const uuid = require('uuid');
 const cors = require('cors');
 
-const port = process.argv.length > 2 ? process.argv[2] : 3000;
+const port = process.argv.length > 2 ? process.argv[2] : 4000;
 const authCookieName = 'token';
 
 app.use(cookieParser());
 app.use(express.json());
+app.use(express.static('public'));
 
 app.use(
   cors({
@@ -195,7 +196,7 @@ function getUser(field, value) {
 function setAuthCookie(res, authToken) {
   res.cookie(authCookieName, authToken, {
     maxAge: 1000 * 60 * 60 * 24 * 365,
-    secure: false, // make true for production
+    secure: false,
     httpOnly: true,
     sameSite: 'strict',
   });
