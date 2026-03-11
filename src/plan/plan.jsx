@@ -3,6 +3,8 @@ import './plan.css';
 import { useNavigate } from 'react-router-dom';
 import Schedule from './schedule';
 
+const serviceUrl = 'http://localhost:3000';
+
 export default function Plan({ items, setItems, schedule, setSchedule }) {
   const [listDragOver, setListDragOver] = useState(false);
   const navigate = useNavigate();
@@ -23,38 +25,75 @@ export default function Plan({ items, setItems, schedule, setSchedule }) {
     [schedule]
   );
 
-  const handleDropOnSchedule = (item, startMin) => {
+  const handleDropOnSchedule = async (item, startMin) => {
     const endMin = startMin + item.time;
-    setSchedule(prev => {
-      if (item.isRecurring) {
-        if (item.source === 'scheduled') {
-          const others = prev.filter(s => s.id !== item.id);
-          const hasOverlap = others.some(s => startMin < s.startMin + s.time && endMin > s.startMin);
-          if (hasOverlap) return prev;
-          return prev.map(s => s.id === item.id ? { ...s, startMin } : s);
-        }
+    if (item.isRecurring) {
+      if (item.source === 'scheduled') {
+        const others = schedule.filter(s => s.id !== item.id);
+        const hasOverlap = others.some(s => startMin < s.startMin + s.time && endMin > s.startMin);
+        if (hasOverlap) return;
 
-        const hasOverlap = prev.some(s => startMin < s.startMin + s.time && endMin > s.startMin);
-        if (hasOverlap) return prev;
-        return [...prev, { ...item, id: crypto.randomUUID(), startMin }];
+        const response = await fetch(`${serviceUrl}/schedule`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ ...item, startMin }),
+        });
+
+        if (!response.ok) return;
+        const data = await response.json().catch(() => ({}));
+        setSchedule(data.schedule ?? schedule);
+        return;
       }
-      const others = prev.filter(s => s.id !== item.id);
-      const hasOverlap = others.some(s => startMin < s.startMin + s.time && endMin > s.startMin);
-      if (hasOverlap) return prev;
-      const exists = prev.find(s => s.id === item.id);
-      if (exists) return prev.map(s => s.id === item.id ? { ...s, startMin } : s);
-      return [...prev, { ...item, startMin }];
+
+      const hasOverlap = schedule.some(s => startMin < s.startMin + s.time && endMin > s.startMin);
+      if (hasOverlap) return;
+
+      const response = await fetch(`${serviceUrl}/schedule`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ ...item, id: crypto.randomUUID(), startMin }),
+      });
+
+      if (!response.ok) return;
+      const data = await response.json().catch(() => ({}));
+      setSchedule(data.schedule ?? schedule);
+      return;
+    }
+
+    const others = schedule.filter(s => s.id !== item.id);
+    const hasOverlap = others.some(s => startMin < s.startMin + s.time && endMin > s.startMin);
+    if (hasOverlap) return;
+
+    const response = await fetch(`${serviceUrl}/schedule`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ ...item, startMin }),
     });
+
+    if (!response.ok) return;
+    const data = await response.json().catch(() => ({}));
+    setSchedule(data.schedule ?? schedule);
   };
 
-  const handleDropOnList = (e) => {
+  const handleDropOnList = async (e) => {
     e.preventDefault();
     setListDragOver(false);
     const raw = e.dataTransfer.getData('application/json');
     if (!raw) return;
     const item = JSON.parse(raw);
     if (item.source !== 'scheduled') return;
-    setSchedule(prev => prev.filter(s => s.id !== item.id));
+
+    const response = await fetch(`${serviceUrl}/schedule/${item.id}`, {
+      method: 'DELETE',
+      credentials: 'include',
+    });
+
+    if (!response.ok) return;
+    const data = await response.json().catch(() => ({}));
+    setSchedule(data.schedule ?? schedule.filter(s => s.id !== item.id));
   };
 
   const handleListDragOver = (e) => {
@@ -66,10 +105,46 @@ export default function Plan({ items, setItems, schedule, setSchedule }) {
 
   const handleListDragLeave = () => setListDragOver(false);
 
-  const handleClear = () => {
-    const toDelete = new Set(schedule.filter(s => !s.isRecurring).map(s => s.id));
-    setItems(prev => prev.filter(item => !toDelete.has(item.id)));
-    setSchedule([]);
+  const handleClear = async () => {
+    const scheduleIds = schedule.map((s) => s.id);
+    const deletedIds = new Set();
+    const oneTimeScheduledIds = [...new Set(schedule.filter((s) => !s.isRecurring).map((s) => s.id))];
+    const deletedItemIds = new Set();
+
+    await Promise.all(
+      scheduleIds.map(async (id) => {
+        try {
+          const response = await fetch(`${serviceUrl}/schedule/${id}`, {
+            method: 'DELETE',
+            credentials: 'include',
+          });
+
+          if (response.ok) {
+            deletedIds.add(id);
+          }
+        } catch {
+        }
+      })
+    );
+
+    await Promise.all(
+      oneTimeScheduledIds.map(async (id) => {
+        try {
+          const response = await fetch(`${serviceUrl}/item/${id}`, {
+            method: 'DELETE',
+            credentials: 'include',
+          });
+
+          if (response.ok) {
+            deletedItemIds.add(id);
+          }
+        } catch {
+        }
+      })
+    );
+
+    setItems(prev => prev.filter(item => !deletedItemIds.has(item.id)));
+    setSchedule(prev => prev.filter(s => !deletedIds.has(s.id)));
   };
 
   const itemProps = (item) => ({
