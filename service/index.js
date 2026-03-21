@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 const uuid = require('uuid');
 const cors = require('cors');
+const DB = require('./database');
 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 const authCookieName = 'token';
@@ -20,8 +21,6 @@ app.use(
   })
 );
 
-const users = {};
-
 app.post('/api/user', async (req, res) => {
   const { username, password } = req.body;
 
@@ -29,20 +28,23 @@ app.post('/api/user', async (req, res) => {
     return res.status(400).send({ msg: 'username and password required' });
   }
 
-  if (users[username]) {
+  const existingUser = await DB.getUser(username);
+  if (existingUser) {
     return res.status(409).send({ msg: 'Existing user' });
   }
 
   const passwordHash = await bcrypt.hash(password, 10);
   const authToken = uuid.v4();
 
-  users[username] = {
+  const user = {
     username,
     passwordHash,
     authToken,
     items: [],
     schedule: [],
   };
+
+  await DB.addUser(user);
 
   setAuthCookie(res, authToken);
 
@@ -56,7 +58,7 @@ app.post('/api/session', async (req, res) => {
     return res.status(400).send({ msg: 'username and password required' });
   }
 
-  const user = users[username];
+  const user = await DB.getUser(username);
   if (!user) {
     return res.status(401).send({ msg: 'User not found' });
   }
@@ -68,6 +70,7 @@ app.post('/api/session', async (req, res) => {
 
   const authToken = uuid.v4();
   user.authToken = authToken;
+  await DB.updateUser(user);
   setAuthCookie(res, authToken);
 
   return res.status(200).send({
@@ -77,10 +80,10 @@ app.post('/api/session', async (req, res) => {
   });
 });
 
-app.delete('/api/session', (req, res) => {
-  const user = getUser('authToken', req.cookies?.[authCookieName]);
+app.delete('/api/session', async (req, res) => {
+  const user = await DB.getUserByToken(req.cookies?.[authCookieName]);
   if (user) {
-    delete user.authToken;
+    await DB.updateUserRemoveAuth(user);
   }
 
   res.clearCookie(authCookieName);
@@ -88,8 +91,8 @@ app.delete('/api/session', (req, res) => {
   return res.status(204).send();
 });
 
-app.post('/api/item', (req, res) => {
-  const user = getUser('authToken', req.cookies?.[authCookieName]);
+app.post('/api/item', async (req, res) => {
+  const user = await DB.getUserByToken(req.cookies?.[authCookieName]);
   if (!user) {
     return res.status(401).send({ msg: 'Unauthorized' });
   }
@@ -107,11 +110,12 @@ app.post('/api/item', (req, res) => {
   };
 
   user.items.push(newItem);
+  await DB.updateUser(user);
   return res.status(201).send({ items: user.items });
 });
 
-app.delete('/api/item/:id', (req, res) => {
-  const user = getUser('authToken', req.cookies?.[authCookieName]);
+app.delete('/api/item/:id', async (req, res) => {
+  const user = await DB.getUserByToken(req.cookies?.[authCookieName]);
   if (!user) {
     return res.status(401).send({ msg: 'Unauthorized' });
   }
@@ -127,11 +131,12 @@ app.delete('/api/item/:id', (req, res) => {
   }
 
   user.items.splice(itemIndex, 1);
+  await DB.updateUser(user);
   return res.status(200).send({ items: user.items });
 });
 
-app.post('/api/schedule', (req, res) => {
-  const user = getUser('authToken', req.cookies?.[authCookieName]);
+app.post('/api/schedule', async (req, res) => {
+  const user = await DB.getUserByToken(req.cookies?.[authCookieName]);
   if (!user) {
     return res.status(401).send({ msg: 'Unauthorized' });
   }
@@ -163,11 +168,12 @@ app.post('/api/schedule', (req, res) => {
     user.schedule.push(newScheduleItem);
   }
 
+  await DB.updateUser(user);
   return res.status(201).send({ schedule: user.schedule });
 });
 
-app.delete('/api/schedule/:id', (req, res) => {
-  const user = getUser('authToken', req.cookies?.[authCookieName]);
+app.delete('/api/schedule/:id', async (req, res) => {
+  const user = await DB.getUserByToken(req.cookies?.[authCookieName]);
   if (!user) {
     return res.status(401).send({ msg: 'Unauthorized' });
   }
@@ -183,15 +189,9 @@ app.delete('/api/schedule/:id', (req, res) => {
   }
 
   user.schedule.splice(scheduleIndex, 1);
+  await DB.updateUser(user);
   return res.status(200).send({ schedule: user.schedule });
 });
-
-
-function getUser(field, value) {
-  if (!value) return null;
-
-  return Object.values(users).find((user) => user[field] === value);
-}
 
 function setAuthCookie(res, authToken) {
   res.cookie(authCookieName, authToken, {
