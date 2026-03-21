@@ -109,9 +109,8 @@ app.post('/api/item', async (req, res) => {
     isRecurring,
   };
 
-  user.items.push(newItem);
-  await DB.updateUser(user);
-  return res.status(201).send({ items: user.items });
+  const items = await DB.addItem(user.username, newItem);
+  return res.status(201).send({ items });
 });
 
 app.delete('/api/item/:id', async (req, res) => {
