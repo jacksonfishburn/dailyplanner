@@ -17,3 +17,16 @@ const userCollection = db.collection('user');
   }
 })();
 
+function getUser(username) {
+  return userCollection.findOne({ username: username });
+}
+
+async function addUser(user) {
+  await userCollection.insertOne(user);
+}
+
+module.exports = {
+  getUser,
+  addUser,
+};
+
