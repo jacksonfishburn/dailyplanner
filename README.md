@@ -76,3 +76,8 @@ For this deliverable I added backend endpoints to login/logout users, as well as
 * Frontend calls service endpoints
 * Supports registration, login, logout, and restricted endpoint
 * Uses BCrypt to hash passwords
+
+## DB Deliverable
+For this deliverable I created a database system to store and retrieve user and item data. 
+* Stores data in MongoDB - stores the user, their items, and their schedule
+* Use MongoDB to store credentials - user informations such as username, hashed password and item details stored using MongoDB
