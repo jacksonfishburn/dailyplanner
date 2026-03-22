@@ -124,14 +124,13 @@ app.delete('/api/item/:id', async (req, res) => {
     return res.status(400).send({ msg: 'Item id is required' });
   }
 
-  const itemIndex = user.items.findIndex((item) => item.id === id);
-  if (itemIndex === -1) {
+  const itemExists = user.items.findIndex((item) => item.id === id) !== -1;
+  if (!itemExists) {
     return res.status(404).send({ msg: 'Item not found' });
   }
 
-  user.items.splice(itemIndex, 1);
-  await DB.updateUser(user);
-  return res.status(200).send({ items: user.items });
+  const items = await DB.removeItem(user.username, id);
+  return res.status(200).send({ items });
 });
 
 app.post('/api/schedule', async (req, res) => {

@@ -43,6 +43,12 @@ async function addItem(username, item) {
   return updatedUser?.items || [];
 }
 
+async function removeItem(username, itemId) {
+  await userCollection.updateOne({ username: username }, { $pull: { items: { id: itemId } } });
+  const updatedUser = await userCollection.findOne({ username: username });
+  return updatedUser?.items || [];
+}
+
 module.exports = {
   getUser,
   getUserByToken,
@@ -50,5 +56,6 @@ module.exports = {
   updateUser,
   updateUserRemoveAuth,
   addItem,
+  removeItem,
 };
 
