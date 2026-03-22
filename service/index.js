@@ -159,15 +159,8 @@ app.post('/api/schedule', async (req, res) => {
     startMin,
   };
 
-  const existingIndex = user.schedule.findIndex((entry) => entry.id === newScheduleItem.id);
-  if (existingIndex !== -1) {
-    user.schedule[existingIndex] = newScheduleItem;
-  } else {
-    user.schedule.push(newScheduleItem);
-  }
-
-  await DB.updateUser(user);
-  return res.status(201).send({ schedule: user.schedule });
+  const schedule = await DB.upsertScheduleItem(user.username, newScheduleItem);
+  return res.status(201).send({ schedule });
 });
 
 app.delete('/api/schedule/:id', async (req, res) => {
@@ -181,14 +174,13 @@ app.delete('/api/schedule/:id', async (req, res) => {
     return res.status(400).send({ msg: 'Schedule id is required' });
   }
 
-  const scheduleIndex = user.schedule.findIndex((entry) => entry.id === id);
-  if (scheduleIndex === -1) {
+  const scheduleExists = user.schedule.findIndex((entry) => entry.id === id) !== -1;
+  if (!scheduleExists) {
     return res.status(404).send({ msg: 'Schedule item not found' });
   }
 
-  user.schedule.splice(scheduleIndex, 1);
-  await DB.updateUser(user);
-  return res.status(200).send({ schedule: user.schedule });
+  const schedule = await DB.removeScheduleItem(user.username, id);
+  return res.status(200).send({ schedule });
 });
 
 function setAuthCookie(res, authToken) {

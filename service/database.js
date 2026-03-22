@@ -56,6 +56,12 @@ async function upsertScheduleItem(username, scheduleItem) {
   return updatedUser?.schedule || [];
 }
 
+async function removeScheduleItem(username, scheduleId) {
+  await userCollection.updateOne({ username: username }, { $pull: { schedule: { id: scheduleId } } });
+  const updatedUser = await userCollection.findOne({ username: username });
+  return updatedUser?.schedule || [];
+}
+
 module.exports = {
   getUser,
   getUserByToken,
@@ -65,5 +71,6 @@ module.exports = {
   addItem,
   removeItem,
   upsertScheduleItem,
+  removeScheduleItem,
 };
 
