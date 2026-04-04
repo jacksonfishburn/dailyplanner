@@ -5,6 +5,45 @@ const authCookieName = 'token';
 const userSockets = new Map();
 let socketServer;
 
+async function attachRealtime(httpServer) {
+	socketServer = new WebSocketServer({ server: httpServer });
+
+	socketServer.on('connection', async (socket, req) => {
+		socket.isAlive = true;
+
+		const token = getTokenFromRequest(req);
+		if (!token) {
+			socket.close();
+			return;
+		}
+
+		const user = await DB.getUserByToken(token);
+		if (!user) {
+			socket.close();
+			return;
+		}
+
+		socket.username = user.username;
+
+		if (!userSockets.has(socket.username)) {
+			userSockets.set(socket.username, new Set());
+		}
+		userSockets.get(socket.username).add(socket);
+
+		socket.on('pong', () => {
+			socket.isAlive = true;
+		});
+
+		socket.on('close', () => {
+			removeSocket(socket.username, socket);
+		});
+
+		socket.on('error', () => {
+			removeSocket(socket.username, socket);
+		});
+	});
+}
+
 function parseCookies(cookieHeader) {
 	if (!cookieHeader) {
 		return {};
@@ -47,4 +86,3 @@ function removeSocket(username, socket) {
 		userSockets.delete(username);
 	}
 }
-
