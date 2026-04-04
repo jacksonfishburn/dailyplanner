@@ -7,7 +7,7 @@ const uuid = require('uuid');
 const cors = require('cors');
 const DB = require('./database');
 const http = require('http');
-const { attachRealtime } = require('./realtime');
+const { attachRealtime, broadcastUserState } = require('./realtime');
 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 const authCookieName = 'token';
@@ -112,6 +112,7 @@ app.post('/api/item', async (req, res) => {
   };
 
   const items = await DB.addItem(user.username, newItem);
+  broadcastUserState(user.username, { items });
   return res.status(201).send({ items });
 });
 
@@ -132,6 +133,7 @@ app.delete('/api/item/:id', async (req, res) => {
   }
 
   const items = await DB.removeItem(user.username, id);
+  broadcastUserState(user.username, { items });
   return res.status(200).send({ items });
 });
 
@@ -162,6 +164,7 @@ app.post('/api/schedule', async (req, res) => {
   };
 
   const schedule = await DB.upsertScheduleItem(user.username, newScheduleItem);
+  broadcastUserState(user.username, { schedule });
   return res.status(201).send({ schedule });
 });
 
@@ -182,6 +185,7 @@ app.delete('/api/schedule/:id', async (req, res) => {
   }
 
   const schedule = await DB.removeScheduleItem(user.username, id);
+  broadcastUserState(user.username, { schedule });
   return res.status(200).send({ schedule });
 });
 
