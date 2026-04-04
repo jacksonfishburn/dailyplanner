@@ -6,6 +6,8 @@ const bcrypt = require('bcryptjs');
 const uuid = require('uuid');
 const cors = require('cors');
 const DB = require('./database');
+const http = require('http');
+const { attachRealtime } = require('./realtime');
 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 const authCookieName = 'token';
@@ -200,6 +202,9 @@ app.use((_req, res) => {
   res.sendFile('index.html', { root: 'public' });
 });
 
-app.listen(port, () => {
+const server = http.createServer(app);
+attachRealtime(server);
+
+server.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
