@@ -102,3 +102,22 @@ function removeSocket(username, socket) {
 		userSockets.delete(username);
 	}
 }
+
+function broadcastUserState(username, payload) {
+	const sockets = userSockets.get(username);
+	if (!sockets || sockets.size === 0) {
+		return;
+	}
+
+	const message = JSON.stringify({ type: 'state-sync', payload });
+	sockets.forEach((socket) => {
+		if (socket.readyState === WebSocket.OPEN) {
+			socket.send(message);
+		}
+	});
+}
+
+module.exports = {
+	attachRealtime,
+	broadcastUserState,
+};
