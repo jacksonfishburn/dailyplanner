@@ -12,6 +12,51 @@ export default function App() {
   const [items, setItems] = useState([]);
   const [schedule, setSchedule] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
+  const socketRef = React.useRef(null);
+
+  useEffect(() => {
+    if (socketRef.current) {
+      socketRef.current.close();
+      socketRef.current = null;
+    }
+
+    if (!currentUser) {
+      return undefined;
+    }
+
+    const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const wsHost = window.location.port === '5173'
+      ? `${window.location.hostname}:4000`
+      : window.location.host;
+    const socket = new WebSocket(`${wsProtocol}//${wsHost}`);
+
+    socket.onmessage = (event) => {
+      try {
+        const message = JSON.parse(event.data);
+        if (message.type !== 'state-sync') {
+          return;
+        }
+
+        const payload = message.payload ?? {};
+        if (Array.isArray(payload.items)) {
+          setItems(payload.items);
+        }
+        if (Array.isArray(payload.schedule)) {
+          setSchedule(payload.schedule);
+        }
+      } catch {
+      }
+    };
+
+    socketRef.current = socket;
+
+    return () => {
+      socket.close();
+      if (socketRef.current === socket) {
+        socketRef.current = null;
+      }
+    };
+  }, [currentUser]);
 
   return (
     <BrowserRouter>
