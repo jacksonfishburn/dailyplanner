@@ -22,19 +22,47 @@ function getUser(username) {
 }
 
 function getUserByToken(token) {
-  return userCollection.findOne({ authToken: token });
+  return userCollection.findOne({
+    $or: [
+      { authTokens: token },
+      { authToken: token },
+    ],
+  });
 }
 
 async function addUser(user) {
-  await userCollection.insertOne(user);
+  const userRecord = {
+    ...user,
+    authTokens: user.authToken ? [user.authToken] : [],
+  };
+  delete userRecord.authToken;
+
+  await userCollection.insertOne(userRecord);
 }
 
 async function updateUser(user) {
   await userCollection.updateOne({ username: user.username }, { $set: user });
 }
 
-async function updateUserRemoveAuth(user) {
-  await userCollection.updateOne({ username: user.username }, { $unset: { authToken: 1 } });
+async function addUserAuthToken(username, token) {
+  await userCollection.updateOne(
+    { username: username },
+    {
+      $pull: { authTokens: null },
+      $addToSet: { authTokens: token },
+      $unset: { authToken: 1 },
+    }
+  );
+}
+
+async function removeUserAuthToken(username, token) {
+  await userCollection.updateOne(
+    { username: username },
+    {
+      $pull: { authTokens: token },
+      $unset: { authToken: 1 },
+    }
+  );
 }
 
 async function addItem(username, item) {
@@ -67,7 +95,8 @@ module.exports = {
   getUserByToken,
   addUser,
   updateUser,
-  updateUserRemoveAuth,
+  addUserAuthToken,
+  removeUserAuthToken,
   addItem,
   removeItem,
   upsertScheduleItem,

@@ -71,8 +71,7 @@ app.post('/api/session', async (req, res) => {
   }
 
   const authToken = uuid.v4();
-  user.authToken = authToken;
-  await DB.updateUser(user);
+  await DB.addUserAuthToken(user.username, authToken);
   setAuthCookie(res, authToken);
 
   return res.status(200).send({
@@ -83,9 +82,10 @@ app.post('/api/session', async (req, res) => {
 });
 
 app.delete('/api/session', async (req, res) => {
-  const user = await DB.getUserByToken(req.cookies?.[authCookieName]);
-  if (user) {
-    await DB.updateUserRemoveAuth(user);
+  const token = req.cookies?.[authCookieName];
+  const user = await DB.getUserByToken(token);
+  if (user && token) {
+    await DB.removeUserAuthToken(user.username, token);
   }
 
   res.clearCookie(authCookieName);
