@@ -8,6 +8,22 @@ let socketServer;
 async function attachRealtime(httpServer) {
 	socketServer = new WebSocketServer({ server: httpServer });
 
+	const heartbeatInterval = setInterval(() => {
+		socketServer.clients.forEach((client) => {
+			if (client.isAlive === false) {
+				client.terminate();
+				return;
+			}
+
+			client.isAlive = false;
+			client.ping();
+		});
+	}, 10000);
+
+	socketServer.on('close', () => {
+		clearInterval(heartbeatInterval);
+	});
+
 	socketServer.on('connection', async (socket, req) => {
 		socket.isAlive = true;
 
