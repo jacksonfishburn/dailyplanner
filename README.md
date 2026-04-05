@@ -81,3 +81,10 @@ For this deliverable I added backend endpoints to login/logout users, as well as
 For this deliverable I created a database system to store and retrieve user and item data. 
 * Stores data in MongoDB - stores the user, their items, and their schedule
 * Use MongoDB to store credentials - user informations such as username, hashed password and item details stored using MongoDB
+
+## WebSocket deliverable
+For this deliverable I used WebSocket to sync item the lists and schedule between different sessions on an account
+* Backend listens for WebSocket connection
+* Frontend makes WebSocket connection upon login
+* Data sent over WebSocket connection whenever the item list or schedule is updated
+* WebSocket data displayed in real time on the item list or schedule
