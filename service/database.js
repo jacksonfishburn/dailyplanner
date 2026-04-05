@@ -49,8 +49,14 @@ async function addUserAuthToken(username, token) {
     { username: username },
     {
       $pull: { authTokens: null },
-      $addToSet: { authTokens: token },
       $unset: { authToken: 1 },
+    }
+  );
+
+  await userCollection.updateOne(
+    { username: username },
+    {
+      $addToSet: { authTokens: token },
     }
   );
 }
