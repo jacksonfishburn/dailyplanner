@@ -1,7 +1,15 @@
 const { MongoClient } = require('mongodb');
-const config = require('./dbConfig.json');
 
-const url = `mongodb+srv://${config.username}:${config.password}@${config.hostname}`;
+const username = process.env.MONGODB_USERNAME;
+const password = process.env.MONGODB_PASSWORD;
+const hostname = process.env.MONGODB_HOSTNAME;
+
+if (!username || !password || !hostname) {
+  console.error('Missing required MongoDB environment variables: MONGODB_USERNAME, MONGODB_PASSWORD, MONGODB_HOSTNAME');
+  process.exit(1);
+}
+
+const url = `mongodb+srv://${username}:${password}@${hostname}`;
 const client = new MongoClient(url);
 
 const db = client.db('dailyplanner');
@@ -108,4 +116,3 @@ module.exports = {
   upsertScheduleItem,
   removeScheduleItem,
 };
-
