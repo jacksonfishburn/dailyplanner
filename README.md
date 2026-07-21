@@ -1,5 +1,17 @@
-# Daily Planner
+# PlanMyDay
 
+[planmyday.jacksonfishburn.dev](https://planmyday.jacksonfishburn.dev)
+
+A drag-and-drop daily planner for scheduling recurring and one-time tasks throughout your day.
+
+This project was built for a web-dev class I took alongside the class where I built a chess server. While building the chess server taught me backend fundamentals and server design, this class taught me the web fundamentals of:
+* How UIs are rendered by a browser from HTML and CSS 
+* How JS frameworks (React in this case) can be used to manage state and UI rendering 
+* How a React frontend communicates with an API to present a functional, good-looking page 
+* How NoSQL databases (MongoDB) are used to persistently store and access data 
+* How AWS is used for deployment
+
+I added to this README as I built the project. Below you'll find a section for each deliverable I completed, with specifics on what I did.
 ## Specification
 
 ### Elevator Pitch
@@ -32,7 +44,6 @@ A quick and easy way to plan out your day! Write down and save your todo items a
 ## HTML Deliverable
 
 For this deliverable I built out the structure of my application using HTML.
-* I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
 * HTML pages - 4 HTML pages that represent the ability to login, make a schedule, add items to the todo lists, and document application purposes.
 * Proper HTML element usage - Used nav, lists, buttons, tables and more where applicable.
 * Links - The login page links to the Plan Day page. The Plan Day page has an add option that links to the Manage Items page.
